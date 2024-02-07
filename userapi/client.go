@@ -12,6 +12,8 @@ type Client interface {
 	Flows() Flows
 	// The invoice methods.
 	Invoices() Invoices
+	// The organization methods.
+	Organizations() Organizations
 	// The Portal session.
 	Session() Session
 }
@@ -30,6 +32,10 @@ func (c *clientImpl) Flows() Flows {
 
 func (c *clientImpl) Invoices() Invoices {
 	return &invoicesImpl{transport: c.transport}
+}
+
+func (c *clientImpl) Organizations() Organizations {
+	return &organizationsImpl{transport: c.transport}
 }
 
 func (c *clientImpl) Session() Session {

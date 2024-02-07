@@ -8,7 +8,7 @@ import (
 
 const (
 	ApiBaseUrl = "https://api.userhub.com"
-	Version    = "0.1.0"
+	Version    = "0.2.0"
 
 	AuthHeader     = "Authorization"
 	ApiKeyHeader   = "UserHub-Api-Key"
