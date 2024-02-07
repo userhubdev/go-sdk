@@ -58,16 +58,6 @@ type FlowListInput struct {
 	// When paginating, all other parameters provided to list flows must match
 	// the call that provided the page token.
 	PageToken string
-	// The filter string. Supports filtering by state, type, and create_time.
-	//
-	// Some examples:
-	// - By state:
-	//       state = 'START_PENDING'
-	// - By type:
-	//       type = 'JOIN_ORGANIZATION'
-	// - By create_time:
-	//       create_time > "2022-03-04T05:00:00Z"
-	Filter string
 	// A comma-separated list of fields to order by, sorted in ascending order.
 	// Use `desc` after a field name for descending.
 	//
@@ -97,9 +87,6 @@ func (n *flowsImpl) List(ctx context.Context, input *FlowListInput) (*userv1.Lis
 		}
 		if !internal.IsEmpty(input.PageToken) {
 			req.SetQuery("pageToken", input.PageToken)
-		}
-		if !internal.IsEmpty(input.Filter) {
-			req.SetQuery("filter", input.Filter)
 		}
 		if !internal.IsEmpty(input.OrderBy) {
 			req.SetQuery("orderBy", input.OrderBy)
