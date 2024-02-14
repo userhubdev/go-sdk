@@ -83,7 +83,8 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
   },
   "signup": {
     "email": "test@example.com",
-    "displayName": "Test"
+    "displayName": "Test",
+    "createOrganization": true
   }
 }`
 
@@ -142,7 +143,8 @@ func TestFlows_Get(t *testing.T) {
   },
   "signup": {
     "email": "test@example.com",
-    "displayName": "Test"
+    "displayName": "Test",
+    "createOrganization": true
   }
 }`
 
@@ -201,7 +203,8 @@ func TestFlows_Consume(t *testing.T) {
   },
   "signup": {
     "email": "test@example.com",
-    "displayName": "Test"
+    "displayName": "Test",
+    "createOrganization": true
   }
 }`
 
@@ -260,7 +263,8 @@ func TestFlows_Cancel(t *testing.T) {
   },
   "signup": {
     "email": "test@example.com",
-    "displayName": "Test"
+    "displayName": "Test",
+    "createOrganization": true
   }
 }`
 
