@@ -20,4 +20,8 @@ type OrganizationInput struct {
 	//
 	// The maximum length is 320 characters.
 	Email *string `json:"email"`
+	// The flow identifier associated with the creation of the organization.
+	//
+	// The flow type must be `SIGNUP` and associated with the user creating the organization.
+	FlowId *string `json:"flowId"`
 }

@@ -24,6 +24,8 @@ type Flow struct {
 	//
 	// This will not be set if the invitation was created by an admin.
 	Creator *User `json:"creator"`
+	// The start time of the flow.
+	StartTime time.Time `json:"startTime"`
 	// The time the flow will expire.
 	ExpireTime time.Time `json:"expireTime"`
 	// The expire duration of the flow.

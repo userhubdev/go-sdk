@@ -20,6 +20,7 @@ func TestFlows_List(t *testing.T) {
       "state": "START_PENDING",
       "stateReason": "DELETED",
       "type": "JOIN_ORGANIZATION",
+      "startTime": "2024-02-05T23:07:46.483Z",
       "expireTime": "2024-02-05T23:07:46.483Z",
       "ttl": "string",
       "secret": "string",
@@ -152,6 +153,7 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
   },
+  "startTime": "2024-02-05T23:07:46.483Z",
   "expireTime": "2024-02-05T23:07:46.483Z",
   "ttl": "string",
   "secret": "string",
@@ -163,7 +165,8 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
   },
   "signup": {
     "email": "test@example.com",
-    "displayName": "Test"
+    "displayName": "Test",
+    "createOrganization": true
   }
 }`
 
@@ -288,6 +291,7 @@ func TestFlows_Get(t *testing.T) {
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
   },
+  "startTime": "2024-02-05T23:07:46.483Z",
   "expireTime": "2024-02-05T23:07:46.483Z",
   "ttl": "string",
   "secret": "string",
@@ -299,7 +303,8 @@ func TestFlows_Get(t *testing.T) {
   },
   "signup": {
     "email": "test@example.com",
-    "displayName": "Test"
+    "displayName": "Test",
+    "createOrganization": true
   }
 }`
 
@@ -424,6 +429,7 @@ func TestFlows_Cancel(t *testing.T) {
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
   },
+  "startTime": "2024-02-05T23:07:46.483Z",
   "expireTime": "2024-02-05T23:07:46.483Z",
   "ttl": "string",
   "secret": "string",
@@ -435,7 +441,8 @@ func TestFlows_Cancel(t *testing.T) {
   },
   "signup": {
     "email": "test@example.com",
-    "displayName": "Test"
+    "displayName": "Test",
+    "createOrganization": true
   }
 }`
 

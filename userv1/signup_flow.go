@@ -8,4 +8,6 @@ type SignupFlow struct {
 	Email string `json:"email"`
 	// The display name of the invitee.
 	DisplayName string `json:"displayName"`
+	// Whether to create an organization as part of the signup flow.
+	CreateOrganization bool `json:"createOrganization"`
 }

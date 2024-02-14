@@ -111,6 +111,10 @@ type OrganizationCreateInput struct {
 	//
 	// The maximum length is 320 characters.
 	Email string
+	// The flow identifier associated with the creation of the organization.
+	//
+	// The flow type must be `SIGNUP` and associated with the user creating the organization.
+	FlowId string
 }
 
 func (n *organizationsImpl) Create(ctx context.Context, input *OrganizationCreateInput) (*userv1.Organization, error) {
@@ -131,6 +135,9 @@ func (n *organizationsImpl) Create(ctx context.Context, input *OrganizationCreat
 		}
 		if !internal.IsEmpty(input.Email) {
 			body["email"] = input.Email
+		}
+		if !internal.IsEmpty(input.FlowId) {
+			body["flowId"] = input.FlowId
 		}
 	}
 
@@ -198,6 +205,10 @@ type OrganizationUpdateInput struct {
 	//
 	// The maximum length is 320 characters.
 	Email types.Optional[string]
+	// The flow identifier associated with the creation of the organization.
+	//
+	// The flow type must be `SIGNUP` and associated with the user creating the organization.
+	FlowId types.Optional[string]
 }
 
 func (n *organizationsImpl) Update(ctx context.Context, organizationId string, input *OrganizationUpdateInput) (*userv1.Organization, error) {
@@ -221,6 +232,9 @@ func (n *organizationsImpl) Update(ctx context.Context, organizationId string, i
 		}
 		if input.Email.Present {
 			body["email"] = input.Email.Value
+		}
+		if input.FlowId.Present {
+			body["flowId"] = input.FlowId.Value
 		}
 	}
 
