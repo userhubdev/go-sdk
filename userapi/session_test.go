@@ -12,6 +12,8 @@ import (
 )
 
 func TestSession_Get(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "user": {

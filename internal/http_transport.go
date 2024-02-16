@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/userhubdev/go-sdk/apiv1"
+	"github.com/userhubdev/go-sdk/code"
 	"github.com/userhubdev/go-sdk/types"
 )
 
@@ -57,7 +58,7 @@ func NewHttpTransport(
 		headers = headers.Clone()
 	}
 
-	headers.Set("user-agent", "UserHub-Go/"+Version)
+	headers.Set("user-agent", UserAgent)
 
 	return &HttpTransport{
 		baseUrl: baseUrl,
@@ -81,19 +82,19 @@ func (t *HttpTransport) attempt(
 
 	httpReq, err := http.NewRequestWithContext(ctx, req.method, reqUrl, reqReader)
 	if err != nil {
-		return nil, Errorf(req, nil, "failed to create request: %w", err)
+		return nil, CallErrorf(req, nil, "failed to create request: %w", err)
 	}
 	httpReq.Header = headers.Clone()
 
 	httpRes, err := defaultClient.Do(httpReq)
 	if err != nil {
-		return nil, Errorf(req, httpRes, "failed to execute request: %w", err)
+		return nil, CallErrorf(req, httpRes, "failed to execute request: %w", err)
 	}
 	defer httpRes.Body.Close()
 
 	resBody, err := io.ReadAll(&io.LimitedReader{R: httpRes.Body, N: MaxBodySizeBytes})
 	if err != nil {
-		return nil, Errorf(req, httpRes, "failed to read response body: %w", err)
+		return nil, CallErrorf(req, httpRes, "failed to read response body: %w", err)
 	}
 
 	if httpRes.StatusCode/100 != 2 {
@@ -102,12 +103,15 @@ func (t *HttpTransport) attempt(
 
 			err = json.Unmarshal(resBody, &status)
 			if err != nil {
-				return nil, Errorf(req, httpRes, "failed to decode API%s", summarizeBody(resBody))
+				return nil, CallErrorf(req, httpRes, "failed to decode API%s", summarizeBody(resBody))
 			}
 
-			return nil, types.NewUserHubError(req.call, "", status, httpRes.StatusCode, nil)
+			return nil, types.NewErrorFromStatus(req.call, "", status, httpRes.StatusCode, nil)
+		} else if httpRes.StatusCode == 429 {
+			return nil, CallErrorf(req, httpRes, "API call rate limited").
+				SetApiCode(code.ResourceExhausted)
 		} else {
-			return nil, Errorf(req, httpRes, "API returned non-JSON error%s", summarizeBody(resBody))
+			return nil, CallErrorf(req, httpRes, "API returned non-JSON error%s", summarizeBody(resBody))
 		}
 	}
 
@@ -122,7 +126,7 @@ func (t *HttpTransport) Execute(ctx context.Context, req *Request) (*Response, e
 	if len(req.query) > 0 {
 		u, err := url.Parse(t.baseUrl + req.path)
 		if err != nil {
-			return nil, Errorf(req, nil, "failed to parse URL: %w", err)
+			return nil, CallErrorf(req, nil, "failed to parse URL: %w", err)
 		}
 
 		q := u.Query()
@@ -148,7 +152,7 @@ func (t *HttpTransport) Execute(ctx context.Context, req *Request) (*Response, e
 	if req.body != nil {
 		body, err = json.Marshal(req.body)
 		if err != nil {
-			return nil, Errorf(req, nil, "failed to marshal body: %w", err)
+			return nil, CallErrorf(req, nil, "failed to marshal body: %w", err)
 		}
 		headers.Set("content-type", "application/json")
 	}

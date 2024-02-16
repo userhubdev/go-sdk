@@ -12,6 +12,8 @@ import (
 )
 
 func TestOrganizations_List(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "organizations": [
@@ -54,6 +56,8 @@ func TestOrganizations_List(t *testing.T) {
 }
 
 func TestOrganizations_Create(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -122,6 +126,8 @@ func TestOrganizations_Create(t *testing.T) {
 }
 
 func TestOrganizations_Get(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -190,6 +196,8 @@ func TestOrganizations_Get(t *testing.T) {
 }
 
 func TestOrganizations_Update(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -258,6 +266,8 @@ func TestOrganizations_Update(t *testing.T) {
 }
 
 func TestOrganizations_Delete(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -326,6 +336,8 @@ func TestOrganizations_Delete(t *testing.T) {
 }
 
 func TestOrganizations_Undelete(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -394,6 +406,8 @@ func TestOrganizations_Undelete(t *testing.T) {
 }
 
 func TestOrganizations_Connect(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -462,6 +476,8 @@ func TestOrganizations_Connect(t *testing.T) {
 }
 
 func TestOrganizations_Disconnect(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -530,6 +546,8 @@ func TestOrganizations_Disconnect(t *testing.T) {
 }
 
 func TestOrganizations_ListMembers(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "members": [
@@ -557,6 +575,8 @@ func TestOrganizations_ListMembers(t *testing.T) {
 }
 
 func TestOrganizations_AddMember(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "state": "ACTIVE",
@@ -633,6 +653,8 @@ func TestOrganizations_AddMember(t *testing.T) {
 }
 
 func TestOrganizations_GetMember(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "state": "ACTIVE",
@@ -709,6 +731,8 @@ func TestOrganizations_GetMember(t *testing.T) {
 }
 
 func TestOrganizations_UpdateMember(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "state": "ACTIVE",
@@ -785,6 +809,8 @@ func TestOrganizations_UpdateMember(t *testing.T) {
 }
 
 func TestOrganizations_RemoveMember(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{}`
 

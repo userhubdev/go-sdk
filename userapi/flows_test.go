@@ -12,6 +12,8 @@ import (
 )
 
 func TestFlows_List(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "flows": [
@@ -42,6 +44,8 @@ func TestFlows_List(t *testing.T) {
 }
 
 func TestFlows_CreateJoinOrganization(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -102,6 +106,8 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
 }
 
 func TestFlows_Get(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -162,6 +168,8 @@ func TestFlows_Get(t *testing.T) {
 }
 
 func TestFlows_Consume(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -222,6 +230,8 @@ func TestFlows_Consume(t *testing.T) {
 }
 
 func TestFlows_Cancel(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",

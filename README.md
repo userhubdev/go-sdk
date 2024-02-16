@@ -2,7 +2,19 @@
 
 Stability: alpha
 
-## Usage
+### Requirements
+
+ * Go 1.20 or later
+
+### Getting Started
+
+Install SDK
+
+```sh
+go get -u github.com/userhubdev/go-sdk
+```
+
+Example
 
 ```go
 package main
@@ -32,3 +44,5 @@ func main() {
 	}
 }
 ```
+
+See the `examples` directory for more examples.
