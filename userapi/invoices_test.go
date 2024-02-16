@@ -110,6 +110,18 @@ func TestInvoices_Get(t *testing.T) {
       "proration": true
     }
   ],
+  "changes": [
+    {
+      "time": "2024-02-05T23:07:46.483Z",
+      "description": "string",
+      "subtotalAmount": "string",
+      "discountAmount": "string",
+      "startQuantity": 1,
+      "endQuantity": 1,
+      "startItemIds": [],
+      "endItemIds": []
+    }
+  ],
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
 }`

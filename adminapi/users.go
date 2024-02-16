@@ -623,11 +623,16 @@ type UserCreatePortalSessionInput struct {
 	//
 	// If not defined the root URL for the portal will be used.
 	PortalUrl string
-	// The return URL, this is where the user should be sent after they
-	// exit the Portal.
+	// The URL the user should be sent to when they want to return to
+	// the app (e.g. cancel checkout).
 	//
 	// If not defined the app URL will be used.
 	ReturnUrl string
+	// The URl the user should be sent after they successfully complete
+	// an action (e.g. checkout).
+	//
+	// If not defined the return URL will be used.
+	SuccessUrl string
 }
 
 func (n *usersImpl) CreatePortalSession(ctx context.Context, userId string, input *UserCreatePortalSessionInput) (*adminv1.CreatePortalSessionResponse, error) {
@@ -648,6 +653,9 @@ func (n *usersImpl) CreatePortalSession(ctx context.Context, userId string, inpu
 		}
 		if !internal.IsEmpty(input.ReturnUrl) {
 			body["returnUrl"] = input.ReturnUrl
+		}
+		if !internal.IsEmpty(input.SuccessUrl) {
+			body["successUrl"] = input.SuccessUrl
 		}
 	}
 
