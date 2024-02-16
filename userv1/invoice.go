@@ -61,6 +61,8 @@ type Invoice struct {
 	PaymentIntent *PaymentIntent `json:"paymentIntent"`
 	// The line items for the invoice.
 	Items []*InvoiceItem `json:"items"`
+	// The prorated changes that occurred mid-billing cycle.
+	Changes []*InvoiceChange `json:"changes"`
 	// The creation time of the invoice.
 	CreateTime time.Time `json:"createTime"`
 	// The last update time of the invoice.
