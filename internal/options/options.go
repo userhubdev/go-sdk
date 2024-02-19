@@ -1,6 +1,7 @@
 package options
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"net/http"
@@ -35,4 +36,8 @@ func (o *ClientOptions) Validate() error {
 	}
 
 	return nil
+}
+
+type WebhooksOptions struct {
+	OnError func(ctx context.Context, err error)
 }

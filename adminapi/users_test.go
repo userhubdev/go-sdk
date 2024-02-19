@@ -12,6 +12,8 @@ import (
 )
 
 func TestUsers_List(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "users": [
@@ -54,6 +56,8 @@ func TestUsers_List(t *testing.T) {
 }
 
 func TestUsers_Create(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -128,6 +132,8 @@ func TestUsers_Create(t *testing.T) {
 }
 
 func TestUsers_Get(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -202,6 +208,8 @@ func TestUsers_Get(t *testing.T) {
 }
 
 func TestUsers_Update(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -276,6 +284,8 @@ func TestUsers_Update(t *testing.T) {
 }
 
 func TestUsers_Delete(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -350,6 +360,8 @@ func TestUsers_Delete(t *testing.T) {
 }
 
 func TestUsers_Undelete(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -424,6 +436,8 @@ func TestUsers_Undelete(t *testing.T) {
 }
 
 func TestUsers_Connect(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -498,6 +512,8 @@ func TestUsers_Connect(t *testing.T) {
 }
 
 func TestUsers_Disconnect(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -572,6 +588,8 @@ func TestUsers_Disconnect(t *testing.T) {
 }
 
 func TestUsers_ImportAccount(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -646,6 +664,8 @@ func TestUsers_ImportAccount(t *testing.T) {
 }
 
 func TestUsers_CreateApiSession(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "accessToken": "string",
@@ -666,6 +686,8 @@ func TestUsers_CreateApiSession(t *testing.T) {
 }
 
 func TestUsers_CreatePortalSession(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "redirectUrl": "https://example.com"

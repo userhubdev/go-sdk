@@ -12,6 +12,8 @@ import (
 )
 
 func TestOrganizations_List(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "organizations": [
@@ -43,6 +45,8 @@ func TestOrganizations_List(t *testing.T) {
 }
 
 func TestOrganizations_Create(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -68,6 +72,8 @@ func TestOrganizations_Create(t *testing.T) {
 }
 
 func TestOrganizations_Get(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -93,6 +99,8 @@ func TestOrganizations_Get(t *testing.T) {
 }
 
 func TestOrganizations_Update(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -118,6 +126,8 @@ func TestOrganizations_Update(t *testing.T) {
 }
 
 func TestOrganizations_Delete(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",
@@ -143,6 +153,8 @@ func TestOrganizations_Delete(t *testing.T) {
 }
 
 func TestOrganizations_Leave(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{}`
 

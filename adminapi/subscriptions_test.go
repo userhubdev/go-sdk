@@ -12,6 +12,8 @@ import (
 )
 
 func TestSubscriptions_List(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "subscriptions": [
@@ -50,6 +52,8 @@ func TestSubscriptions_List(t *testing.T) {
 }
 
 func TestSubscriptions_Get(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",

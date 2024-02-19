@@ -12,6 +12,8 @@ import (
 )
 
 func TestInvoices_List(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "invoices": [
@@ -57,6 +59,8 @@ func TestInvoices_List(t *testing.T) {
 }
 
 func TestInvoices_Get(t *testing.T) {
+	t.Parallel()
+
 	tr := &internal.TestTransport{}
 	tr.Body = `{
   "id": "string",

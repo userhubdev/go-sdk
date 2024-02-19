@@ -8,9 +8,28 @@ import (
 	"github.com/userhubdev/go-sdk/types"
 )
 
-func Errorf(req *Request, res *http.Response, format string, a ...any) error {
-	var cause error
+func CallErrorf(req *Request, res *http.Response, format string, a ...any) *types.UserHubError {
+	msg, cause := createMsgCause(format, a)
+
 	var call string
+	if req != nil {
+		call = req.call
+	}
+
+	var statusCode int
+	if res != nil {
+		statusCode = res.StatusCode
+	}
+
+	return types.NewErrorFromStatus(call, msg, nil, statusCode, cause)
+}
+
+func createMsgCause(format string, a []any) (string, error) {
+	if len(a) == 0 {
+		return format, nil
+	}
+
+	var cause error
 
 	for _, e := range a {
 		c, ok := e.(error)
@@ -24,15 +43,5 @@ func Errorf(req *Request, res *http.Response, format string, a ...any) error {
 		format = strings.ReplaceAll(format, "%w", "%v")
 	}
 
-	if req != nil {
-		call = req.call
-	}
-
-	var statusCode int
-
-	if res != nil {
-		statusCode = res.StatusCode
-	}
-
-	return types.NewUserHubError(call, fmt.Sprintf(format, a...), nil, statusCode, cause)
+	return fmt.Sprintf(format, a...), cause
 }

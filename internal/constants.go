@@ -8,12 +8,21 @@ import (
 
 const (
 	ApiBaseUrl = "https://api.userhub.com"
-	Version    = "0.2.0"
+	UserAgent  = "UserHub-Go/0.3.0"
+	Version    = "0.3.0"
 
 	AuthHeader     = "Authorization"
 	ApiKeyHeader   = "UserHub-Api-Key"
 	AdminKeyPrefix = "sk_"
 	UserKeyPrefix  = "pk_"
+
+	WebhookActionHeader        = "UserHub-Action"
+	WebhookAgentHeader         = "Webhook-Agent"
+	WebhookMaxRequestSizeBytes = 5242880
+	WebhookMaxTimestampDiff    = 300000 * time.Millisecond
+	WebhookSignatureHeader     = "UserHub-Signature"
+	WebhookTimestampHeader     = "UserHub-Timestamp"
+	WebhookServerErrorJson     = `{"message":"Webhook server error","code":"INTERNAL"}`
 
 	SummarizeBodyLength = 20
 
