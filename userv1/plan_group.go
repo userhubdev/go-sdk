@@ -23,7 +23,7 @@ type PlanGroup struct {
 	// For authenticated requests, this will not be set when the account
 	// isn't eligible for a trial.
 	Trial *PlanGroupTrial `json:"trial"`
-	// Whether the plan is consider an downgrade/upgrade.
+	// Whether the plan is considered an downgrade or upgrade.
 	ChangePath *PlanGroupChangePath `json:"changePath"`
 	// The plans associated with plan group.
 	Plans []*Plan `json:"plans"`

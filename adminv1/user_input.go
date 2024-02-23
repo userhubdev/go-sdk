@@ -11,7 +11,7 @@ import (
 // User input parameters.
 type UserInput struct {
 	// The system-assigned identifier of the user.
-	Id *string `json:"id"`
+	Id string `json:"id"`
 	// The client defined unique identifier of the user account.
 	//
 	// It is restricted to letters, numbers, underscores, and hyphens,

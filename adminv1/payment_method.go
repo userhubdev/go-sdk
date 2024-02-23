@@ -20,7 +20,7 @@ type PaymentMethod struct {
 	StateReason string `json:"stateReason"`
 	// The payment method type.
 	Type string `json:"type"`
-	// A human readable description of the payment method.
+	// A human-readable description of the payment method.
 	//
 	// This can be used to show a description of the payment method
 	// when the type is UNKNOWN or not explicitly handled.
