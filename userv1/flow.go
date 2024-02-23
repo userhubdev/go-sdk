@@ -22,7 +22,7 @@ type Flow struct {
 	User *User `json:"user"`
 	// The user who created the flow.
 	Creator *User `json:"creator"`
-	// The time the flow will expires.
+	// The time the flow will expire.
 	ExpireTime time.Time `json:"expireTime"`
 	// The creation time of the flow.
 	CreateTime time.Time `json:"createTime"`

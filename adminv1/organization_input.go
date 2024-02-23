@@ -11,7 +11,7 @@ import (
 // Organization input parameters.
 type OrganizationInput struct {
 	// The system-assigned identifier of the organization.
-	Id *string `json:"id"`
+	Id string `json:"id"`
 	// The client defined unique identifier of the organization account.
 	//
 	// It is restricted to letters, numbers, underscores, and hyphens,
