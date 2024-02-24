@@ -48,7 +48,7 @@ func (r *Request) SetHeader(name, value string) {
 	if r.headers == nil {
 		r.headers = http.Header{}
 	}
-	r.SetHeader(name, value)
+	r.headers.Set(name, value)
 }
 
 func (r *Request) SetIdempotent(v bool) {

@@ -1,0 +1,44 @@
+run:
+  timeout: 5m
+
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+
+  forbidigo:
+    forbid:
+      - ^print.*$
+      - 'fmt\.Print.*'
+
+  gci:
+    sections:
+      - standard
+      - default
+      - prefix(github.com/userhubdev/go-sdk)
+      - blank
+      - dot
+    custom-order: true
+
+  gofmt:
+    rewrite-rules:
+      - pattern: 'interface{}'
+        replacement: 'any'
+
+  govet:
+    enable-all: true
+    disable:
+      - fieldalignment
+
+linters:
+  enable:
+    - errcheck
+    - forbidigo
+    - gci
+    - gofmt
+    - goimports
+    - govet
+    - misspell
+    - nilnil
+    - perfsprint
+    - unconvert
+    - whitespace
