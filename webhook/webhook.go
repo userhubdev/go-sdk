@@ -140,11 +140,12 @@ func (w *Webhook) Verify(req *Request) error {
 		return types.NewError("Timestamp is invalid: %s", timestamp)
 	}
 
-	diff := time.Until(time.Unix(unixTime, 0))
+	diff := time.Since(time.Unix(unixTime, 0))
 	if diff > internal.WebhookMaxTimestampDiff {
-		return types.NewError("Timestamp is too far in the future: %s", timestamp)
-	} else if diff < -internal.WebhookMaxTimestampDiff {
 		return types.NewError("Timestamp is too far in the past: %s", timestamp)
+	}
+	if diff < -internal.WebhookMaxTimestampDiff {
+		return types.NewError("Timestamp is too far in the future: %s", timestamp)
 	}
 
 	mac := hmac.New(sha256.New, w.signingSecret)
