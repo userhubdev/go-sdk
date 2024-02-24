@@ -10,6 +10,9 @@ fmt:
 .PHONY: lint
 lint:
 	@test -z "$$( gofmt -l . )" || (echo "Needs formatting:" && gofmt -l . && exit 1)
+ifneq (, $(shell command -v golangci-lint))
+	@golangci-lint run ./...
+endif
 
 .PHONY: test
 test:
