@@ -19,6 +19,10 @@ type Flows interface {
 	//
 	// This invites a person to join an organization.
 	CreateJoinOrganization(ctx context.Context, input *FlowCreateJoinOrganizationInput) (*adminv1.Flow, error)
+	// Create a signup flow.
+	//
+	// This invites a person to join the app.
+	CreateSignup(ctx context.Context, input *FlowCreateSignupInput) (*adminv1.Flow, error)
 	// Retrieves specified flow.
 	Get(ctx context.Context, flowId string, input *FlowGetInput) (*adminv1.Flow, error)
 	// Cancels specified flow.
@@ -160,6 +164,76 @@ func (n *flowsImpl) CreateJoinOrganization(ctx context.Context, input *FlowCreat
 		}
 		if !internal.IsEmpty(input.DisplayName) {
 			body["displayName"] = input.DisplayName
+		}
+		if !internal.IsEmpty(input.CreatorUserId) {
+			body["creatorUserId"] = input.CreatorUserId
+		}
+		if !internal.IsEmpty(input.ExpireTime) {
+			body["expireTime"] = input.ExpireTime
+		}
+		if !internal.IsEmpty(input.Ttl) {
+			body["ttl"] = input.Ttl
+		}
+	}
+
+	req.SetBody(body)
+
+	res, err := n.transport.Execute(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	model := &adminv1.Flow{}
+
+	err = res.DecodeBody(&model)
+	if err != nil {
+		return nil, err
+	}
+
+	return model, nil
+}
+
+// FlowCreateSignupInput is the input param for the CreateSignup method.
+type FlowCreateSignupInput struct {
+	// The email address of the person to invite.
+	Email string
+	// The display name of the person to invite.
+	DisplayName string
+	// Whether to create an organization as part of the signup flow.
+	CreateOrganization bool
+	// The identifier of the user sending the invite.
+	CreatorUserId string
+	// The time the flow will expire.
+	//
+	// This field is not allowed if `ttl` is specified.
+	ExpireTime time.Time
+	// The amount of time a flow will be available (e.g. `86400s`).
+	//
+	// This must be a string with the number of seconds followed by a
+	// trailing `s`.
+	//
+	// This field is not allowed if `expireTime` is specified.
+	Ttl string
+}
+
+func (n *flowsImpl) CreateSignup(ctx context.Context, input *FlowCreateSignupInput) (*adminv1.Flow, error) {
+	req := internal.NewRequest(
+		"admin.flows.createSignup",
+		"POST",
+		"/admin/v1/flows:createSignup",
+	)
+
+	body := map[string]any{}
+
+	if input != nil {
+		if !internal.IsEmpty(input.Email) {
+			body["email"] = input.Email
+		}
+		if !internal.IsEmpty(input.DisplayName) {
+			body["displayName"] = input.DisplayName
+		}
+		if !internal.IsEmpty(input.CreateOrganization) {
+			body["createOrganization"] = input.CreateOrganization
 		}
 		if !internal.IsEmpty(input.CreatorUserId) {
 			body["creatorUserId"] = input.CreatorUserId

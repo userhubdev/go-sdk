@@ -105,6 +105,68 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
 	require.NotNil(t, res)
 }
 
+func TestFlows_CreateSignup(t *testing.T) {
+	t.Parallel()
+
+	tr := &internal.TestTransport{}
+	tr.Body = `{
+  "id": "string",
+  "state": "START_PENDING",
+  "stateReason": "DELETED",
+  "type": "JOIN_ORGANIZATION",
+  "organization": {
+    "id": "string",
+    "uniqueId": "test",
+    "displayName": "Test",
+    "email": "test@example.com",
+    "emailVerified": true,
+    "imageUrl": "https://example.com/test.png",
+    "disabled": true
+  },
+  "user": {
+    "id": "string",
+    "uniqueId": "test",
+    "displayName": "Test",
+    "email": "test@example.com",
+    "emailVerified": true,
+    "imageUrl": "https://example.com/test.png",
+    "disabled": true
+  },
+  "creator": {
+    "id": "string",
+    "uniqueId": "test",
+    "displayName": "Test",
+    "email": "test@example.com",
+    "emailVerified": true,
+    "imageUrl": "https://example.com/test.png",
+    "disabled": true
+  },
+  "expireTime": "2024-02-05T23:07:46.483Z",
+  "createTime": "2024-02-05T23:07:46.483Z",
+  "joinOrganization": {
+    "displayName": "Test",
+    "email": "test@example.com"
+  },
+  "signup": {
+    "email": "test@example.com",
+    "displayName": "Test",
+    "createOrganization": true
+  }
+}`
+
+	n := &flowsImpl{transport: tr}
+
+	res, err := n.CreateSignup(context.Background(), nil)
+	require.NoError(t, err)
+	require.NotNil(t, res)
+	require.Equal(t, `POST`, tr.Request.Method())
+	require.Equal(t, `/user/v1/flows:createSignup`, tr.Request.Path())
+
+	res, err = n.CreateSignup(context.Background(), &FlowCreateSignupInput{})
+	require.NoError(t, err)
+	require.NotNil(t, res)
+}
+
 func TestFlows_Get(t *testing.T) {
 	t.Parallel()
 
@@ -163,6 +225,68 @@ func TestFlows_Get(t *testing.T) {
 	require.Equal(t, `/user/v1/flows/flowId`, tr.Request.Path())
 
 	res, err = n.Get(context.Background(), "flowId", &FlowGetInput{})
+	require.NoError(t, err)
+	require.NotNil(t, res)
+}
+
+func TestFlows_Approve(t *testing.T) {
+	t.Parallel()
+
+	tr := &internal.TestTransport{}
+	tr.Body = `{
+  "id": "string",
+  "state": "START_PENDING",
+  "stateReason": "DELETED",
+  "type": "JOIN_ORGANIZATION",
+  "organization": {
+    "id": "string",
+    "uniqueId": "test",
+    "displayName": "Test",
+    "email": "test@example.com",
+    "emailVerified": true,
+    "imageUrl": "https://example.com/test.png",
+    "disabled": true
+  },
+  "user": {
+    "id": "string",
+    "uniqueId": "test",
+    "displayName": "Test",
+    "email": "test@example.com",
+    "emailVerified": true,
+    "imageUrl": "https://example.com/test.png",
+    "disabled": true
+  },
+  "creator": {
+    "id": "string",
+    "uniqueId": "test",
+    "displayName": "Test",
+    "email": "test@example.com",
+    "emailVerified": true,
+    "imageUrl": "https://example.com/test.png",
+    "disabled": true
+  },
+  "expireTime": "2024-02-05T23:07:46.483Z",
+  "createTime": "2024-02-05T23:07:46.483Z",
+  "joinOrganization": {
+    "displayName": "Test",
+    "email": "test@example.com"
+  },
+  "signup": {
+    "email": "test@example.com",
+    "displayName": "Test",
+    "createOrganization": true
+  }
+}`
+
+	n := &flowsImpl{transport: tr}
+
+	res, err := n.Approve(context.Background(), "flowId", nil)
+	require.NoError(t, err)
+	require.NotNil(t, res)
+	require.Equal(t, `POST`, tr.Request.Method())
+	require.Equal(t, `/user/v1/flows/flowId:approve`, tr.Request.Path())
+
+	res, err = n.Approve(context.Background(), "flowId", &FlowApproveInput{})
 	require.NoError(t, err)
 	require.NotNil(t, res)
 }
