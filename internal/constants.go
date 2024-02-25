@@ -8,8 +8,8 @@ import (
 
 const (
 	ApiBaseUrl = "https://api.userhub.com"
-	UserAgent  = "UserHub-Go/0.3.0"
-	Version    = "0.3.0"
+	UserAgent  = "UserHub-Go/0.4.0"
+	Version    = "0.4.0"
 
 	AuthHeader     = "Authorization"
 	ApiKeyHeader   = "UserHub-Api-Key"
