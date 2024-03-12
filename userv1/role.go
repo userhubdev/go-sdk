@@ -24,4 +24,6 @@ type Role struct {
 	Description string `json:"description"`
 	// The additional permissions allowed by the role.
 	PermissionSets []string `json:"permissionSets"`
+	// Whether the role is the default for the tenant.
+	Default bool `json:"default"`
 }

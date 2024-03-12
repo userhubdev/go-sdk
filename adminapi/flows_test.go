@@ -165,7 +165,19 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
   "updateTime": "2024-02-05T23:07:46.483Z",
   "joinOrganization": {
     "displayName": "Test",
-    "email": "test@example.com"
+    "email": "test@example.com",
+    "role": {
+      "id": "string",
+      "uniqueId": "test",
+      "displayName": "Test",
+      "type": "OWNER",
+      "description": "string",
+      "permissionSets": [],
+      "default": true,
+      "archived": true,
+      "createTime": "2024-02-05T23:07:46.483Z",
+      "updateTime": "2024-02-05T23:07:46.483Z"
+    }
   },
   "signup": {
     "email": "test@example.com",
@@ -305,7 +317,19 @@ func TestFlows_CreateSignup(t *testing.T) {
   "updateTime": "2024-02-05T23:07:46.483Z",
   "joinOrganization": {
     "displayName": "Test",
-    "email": "test@example.com"
+    "email": "test@example.com",
+    "role": {
+      "id": "string",
+      "uniqueId": "test",
+      "displayName": "Test",
+      "type": "OWNER",
+      "description": "string",
+      "permissionSets": [],
+      "default": true,
+      "archived": true,
+      "createTime": "2024-02-05T23:07:46.483Z",
+      "updateTime": "2024-02-05T23:07:46.483Z"
+    }
   },
   "signup": {
     "email": "test@example.com",
@@ -445,7 +469,19 @@ func TestFlows_Get(t *testing.T) {
   "updateTime": "2024-02-05T23:07:46.483Z",
   "joinOrganization": {
     "displayName": "Test",
-    "email": "test@example.com"
+    "email": "test@example.com",
+    "role": {
+      "id": "string",
+      "uniqueId": "test",
+      "displayName": "Test",
+      "type": "OWNER",
+      "description": "string",
+      "permissionSets": [],
+      "default": true,
+      "archived": true,
+      "createTime": "2024-02-05T23:07:46.483Z",
+      "updateTime": "2024-02-05T23:07:46.483Z"
+    }
   },
   "signup": {
     "email": "test@example.com",
@@ -585,7 +621,19 @@ func TestFlows_Cancel(t *testing.T) {
   "updateTime": "2024-02-05T23:07:46.483Z",
   "joinOrganization": {
     "displayName": "Test",
-    "email": "test@example.com"
+    "email": "test@example.com",
+    "role": {
+      "id": "string",
+      "uniqueId": "test",
+      "displayName": "Test",
+      "type": "OWNER",
+      "description": "string",
+      "permissionSets": [],
+      "default": true,
+      "archived": true,
+      "createTime": "2024-02-05T23:07:46.483Z",
+      "updateTime": "2024-02-05T23:07:46.483Z"
+    }
   },
   "signup": {
     "email": "test@example.com",

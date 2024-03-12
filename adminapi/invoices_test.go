@@ -35,7 +35,7 @@ func TestInvoices_List(t *testing.T) {
       "remainingDueAmount": "string",
       "dueTime": "2024-02-05T23:07:46.483Z",
       "paidAmount": "string",
-      "paymentState": "ACTION_REQUIRED",
+      "paymentState": "PAYMENT_METHOD_REQUIRED",
       "pullTime": "2024-02-05T23:07:46.483Z",
       "createTime": "2024-02-05T23:07:46.483Z",
       "updateTime": "2024-02-05T23:07:46.483Z"
@@ -145,7 +145,7 @@ func TestInvoices_Get(t *testing.T) {
   "remainingDueAmount": "string",
   "dueTime": "2024-02-05T23:07:46.483Z",
   "paidAmount": "string",
-  "paymentState": "ACTION_REQUIRED",
+  "paymentState": "PAYMENT_METHOD_REQUIRED",
   "paymentIntent": {
     "stripe": {
       "accountId": "string",
