@@ -11,4 +11,6 @@ type JoinOrganizationFlow struct {
 	// This is required if a user isn't provided
 	// or the user's email address is empty.
 	Email string `json:"email"`
+	// The role to be assigned to the invitee.
+	Role *Role `json:"role"`
 }

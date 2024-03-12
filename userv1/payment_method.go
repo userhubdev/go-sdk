@@ -5,6 +5,7 @@ package userv1
 import (
 	"time"
 
+	"github.com/userhubdev/go-sdk/apiv1"
 	"github.com/userhubdev/go-sdk/commonv1"
 )
 
@@ -25,6 +26,11 @@ type PaymentMethod struct {
 	Address *commonv1.Address `json:"address"`
 	// Whether the payment method is the default for the account.
 	Default bool `json:"default"`
+	// The last payment error.
+	//
+	// This will be unset if the payment method is updated
+	// or if a payment succeeds.
+	LastPaymentError *apiv1.Status `json:"lastPaymentError"`
 	// The creation time of the payment method connection.
 	CreateTime time.Time `json:"createTime"`
 	// The last update time of the payment method connection.

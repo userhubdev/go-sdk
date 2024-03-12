@@ -83,7 +83,16 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
   "createTime": "2024-02-05T23:07:46.483Z",
   "joinOrganization": {
     "displayName": "Test",
-    "email": "test@example.com"
+    "email": "test@example.com",
+    "role": {
+      "id": "string",
+      "uniqueId": "test",
+      "displayName": "Test",
+      "type": "OWNER",
+      "description": "string",
+      "permissionSets": [],
+      "default": true
+    }
   },
   "signup": {
     "email": "test@example.com",
@@ -145,7 +154,16 @@ func TestFlows_CreateSignup(t *testing.T) {
   "createTime": "2024-02-05T23:07:46.483Z",
   "joinOrganization": {
     "displayName": "Test",
-    "email": "test@example.com"
+    "email": "test@example.com",
+    "role": {
+      "id": "string",
+      "uniqueId": "test",
+      "displayName": "Test",
+      "type": "OWNER",
+      "description": "string",
+      "permissionSets": [],
+      "default": true
+    }
   },
   "signup": {
     "email": "test@example.com",
@@ -207,7 +225,16 @@ func TestFlows_Get(t *testing.T) {
   "createTime": "2024-02-05T23:07:46.483Z",
   "joinOrganization": {
     "displayName": "Test",
-    "email": "test@example.com"
+    "email": "test@example.com",
+    "role": {
+      "id": "string",
+      "uniqueId": "test",
+      "displayName": "Test",
+      "type": "OWNER",
+      "description": "string",
+      "permissionSets": [],
+      "default": true
+    }
   },
   "signup": {
     "email": "test@example.com",
@@ -269,7 +296,16 @@ func TestFlows_Approve(t *testing.T) {
   "createTime": "2024-02-05T23:07:46.483Z",
   "joinOrganization": {
     "displayName": "Test",
-    "email": "test@example.com"
+    "email": "test@example.com",
+    "role": {
+      "id": "string",
+      "uniqueId": "test",
+      "displayName": "Test",
+      "type": "OWNER",
+      "description": "string",
+      "permissionSets": [],
+      "default": true
+    }
   },
   "signup": {
     "email": "test@example.com",
@@ -331,7 +367,16 @@ func TestFlows_Consume(t *testing.T) {
   "createTime": "2024-02-05T23:07:46.483Z",
   "joinOrganization": {
     "displayName": "Test",
-    "email": "test@example.com"
+    "email": "test@example.com",
+    "role": {
+      "id": "string",
+      "uniqueId": "test",
+      "displayName": "Test",
+      "type": "OWNER",
+      "description": "string",
+      "permissionSets": [],
+      "default": true
+    }
   },
   "signup": {
     "email": "test@example.com",
@@ -393,7 +438,16 @@ func TestFlows_Cancel(t *testing.T) {
   "createTime": "2024-02-05T23:07:46.483Z",
   "joinOrganization": {
     "displayName": "Test",
-    "email": "test@example.com"
+    "email": "test@example.com",
+    "role": {
+      "id": "string",
+      "uniqueId": "test",
+      "displayName": "Test",
+      "type": "OWNER",
+      "description": "string",
+      "permissionSets": [],
+      "default": true
+    }
   },
   "signup": {
     "email": "test@example.com",

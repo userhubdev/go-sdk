@@ -8,4 +8,6 @@ type JoinOrganizationFlow struct {
 	DisplayName string `json:"displayName"`
 	// The email address of the invitee.
 	Email string `json:"email"`
+	// The role to be assigned to the invitee.
+	Role *Role `json:"role"`
 }
