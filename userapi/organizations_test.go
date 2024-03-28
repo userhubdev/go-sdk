@@ -129,15 +129,7 @@ func TestOrganizations_Delete(t *testing.T) {
 	t.Parallel()
 
 	tr := &internal.TestTransport{}
-	tr.Body = `{
-  "id": "string",
-  "uniqueId": "test",
-  "displayName": "Test",
-  "email": "test@example.com",
-  "emailVerified": true,
-  "imageUrl": "https://example.com/test.png",
-  "disabled": true
-}`
+	tr.Body = `{}`
 
 	n := &organizationsImpl{transport: tr}
 

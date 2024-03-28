@@ -44,14 +44,11 @@ type InvoiceListInput struct {
 	// When paginating, all other parameters provided to list invoices must match
 	// the call that provided the page token.
 	PageToken string
-	// A comma-separated list of fields to order by, sorted in ascending order.
-	// Use `desc` after a field name for descending.
+	// A comma-separated list of fields to order by.
 	//
-	// Supported fields:
-	// - `state`
-	// - `dueTime`
-	// - `createTime`
-	// - `updateTime`
+	// Supports:
+	// - `createTime asc`
+	// - `createTime desc`
 	OrderBy string
 }
 

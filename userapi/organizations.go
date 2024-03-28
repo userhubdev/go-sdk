@@ -23,7 +23,7 @@ type Organizations interface {
 	// Updates specified organization.
 	Update(ctx context.Context, organizationId string, input *OrganizationUpdateInput) (*userv1.Organization, error)
 	// Delete specified organization.
-	Delete(ctx context.Context, organizationId string, input *OrganizationDeleteInput) (*userv1.Organization, error)
+	Delete(ctx context.Context, organizationId string, input *OrganizationDeleteInput) (*apiv1.EmptyResponse, error)
 	// Leave organization.
 	//
 	// This allows a user to remove themselves from an organization
@@ -49,12 +49,11 @@ type OrganizationListInput struct {
 	// When paginating, all other parameters provided to list organizations must match
 	// the call that provided the page token.
 	PageToken string
-	// A comma-separated list of fields to order by, sorted in ascending order.
-	// Use `desc` after a field name for descending.
+	// A comma-separated list of fields to order by.
 	//
-	// Supported fields:
-	// - `displayName`
-	// - `email`
+	// Supports:
+	// - `displayName asc`
+	// - `email asc`
 	OrderBy string
 }
 
@@ -259,7 +258,7 @@ func (n *organizationsImpl) Update(ctx context.Context, organizationId string, i
 type OrganizationDeleteInput struct {
 }
 
-func (n *organizationsImpl) Delete(ctx context.Context, organizationId string, input *OrganizationDeleteInput) (*userv1.Organization, error) {
+func (n *organizationsImpl) Delete(ctx context.Context, organizationId string, input *OrganizationDeleteInput) (*apiv1.EmptyResponse, error) {
 	req := internal.NewRequest(
 		"user.organizations.delete",
 		"DELETE",
@@ -273,7 +272,7 @@ func (n *organizationsImpl) Delete(ctx context.Context, organizationId string, i
 		return nil, err
 	}
 
-	model := &userv1.Organization{}
+	model := &apiv1.EmptyResponse{}
 
 	err = res.DecodeBody(&model)
 	if err != nil {

@@ -56,6 +56,11 @@ type FlowListInput struct {
 	OrganizationId string
 	// Filter the results by the specified flow type.
 	Type string
+	// Whether to filter out flows not in the `START_PENDING` or `STARTED`
+	// state.
+	Active bool
+	// Whether to only return flows created by the authenticated user.
+	Creator bool
 	// The maximum number of flows to return. The API may return fewer than
 	// this value.
 	//
@@ -68,12 +73,10 @@ type FlowListInput struct {
 	// When paginating, all other parameters provided to list flows must match
 	// the call that provided the page token.
 	PageToken string
-	// A comma-separated list of fields to order by, sorted in ascending order.
-	// Use `desc` after a field name for descending.
+	// A comma-separated list of fields to order by.
 	//
-	// Supported fields:
-	// - `type`
-	// - `createTime`
+	// Supports:
+	// - `createTime desc`
 	OrderBy string
 }
 
@@ -91,6 +94,12 @@ func (n *flowsImpl) List(ctx context.Context, input *FlowListInput) (*userv1.Lis
 		}
 		if !internal.IsEmpty(input.Type) {
 			req.SetQuery("type", input.Type)
+		}
+		if !internal.IsEmpty(input.Active) {
+			req.SetQuery("active", input.Active)
+		}
+		if !internal.IsEmpty(input.Creator) {
+			req.SetQuery("creator", input.Creator)
 		}
 		if !internal.IsEmpty(input.PageSize) {
 			req.SetQuery("pageSize", input.PageSize)
