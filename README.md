@@ -1,4 +1,8 @@
 # UserHub Go SDK
+[![Go Reference](https://pkg.go.dev/badge/github.com/userhubdev/go-sdk)](https://pkg.go.dev/github.com/userhubdev/go-sdk)
+[![Go Latest Version](https://img.shields.io/github/v/release/userhubdev/go-sdk)](https://github.com/userhubdev/go-sdk/releases)
+
+The official [UserHub](https://userhub.com) Go SDK.
 
 Stability: alpha
 
