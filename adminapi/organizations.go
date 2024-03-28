@@ -59,6 +59,22 @@ type organizationsImpl struct {
 
 // OrganizationListInput is the input param for the List method.
 type OrganizationListInput struct {
+	// Filter the results by display name.
+	//
+	// To enable prefix filtering append `*` to the end of the value
+	// and ensure you provide at least 3 characters excluding the
+	// wildcard.
+	//
+	// This filter is case-insensitivity.
+	DisplayName string
+	// Filter the results by email address.
+	//
+	// To enable prefix filtering append `*` to the end of the value
+	// and ensure you provide at least 3 characters excluding the
+	// wildcard.
+	//
+	// This filter is case-insensitivity.
+	Email string
 	// The maximum number of organizations to return. The API may return fewer than
 	// this value.
 	//
@@ -71,14 +87,14 @@ type OrganizationListInput struct {
 	// When paginating, all other parameters provided to list organizations must match
 	// the call that provided the page token.
 	PageToken string
-	// A comma-separated list of fields to order by, sorted in ascending order.
-	// Use `desc` after a field name for descending.
+	// A comma-separated list of fields to order by.
 	//
-	// Supported fields:
-	// - `displayName`
-	// - `email`
-	// - `createTime`
-	// - `deleteTime`
+	// Supports:
+	// - `displayName asc`
+	// - `email asc`
+	// - `signupTime desc`
+	// - `createTime desc`
+	// - `deleteTime desc`
 	OrderBy string
 	// Whether to show deleted organizations.
 	ShowDeleted bool
@@ -97,6 +113,12 @@ func (n *organizationsImpl) List(ctx context.Context, input *OrganizationListInp
 	req.SetIdempotent(true)
 
 	if input != nil {
+		if !internal.IsEmpty(input.DisplayName) {
+			req.SetQuery("displayName", input.DisplayName)
+		}
+		if !internal.IsEmpty(input.Email) {
+			req.SetQuery("email", input.Email)
+		}
 		if !internal.IsEmpty(input.PageSize) {
 			req.SetQuery("pageSize", input.PageSize)
 		}
@@ -557,6 +579,24 @@ func (n *organizationsImpl) Disconnect(ctx context.Context, organizationId strin
 
 // OrganizationListMembersInput is the input param for the ListMembers method.
 type OrganizationListMembersInput struct {
+	// Filter the results by display name.
+	//
+	// To enable prefix filtering append `*` to the end of the value
+	// and ensure you provide at least 3 characters excluding the
+	// wildcard.
+	//
+	// This filter is case-insensitivity.
+	DisplayName string
+	// Filter the results by email address.
+	//
+	// To enable prefix filtering append `*` to the end of the value
+	// and ensure you provide at least 3 characters excluding the
+	// wildcard.
+	//
+	// This filter is case-insensitivity.
+	Email string
+	// Filter the results by a role identifier.
+	RoleId string
 	// The maximum number of members to return. The API may return fewer than
 	// this value.
 	//
@@ -569,12 +609,12 @@ type OrganizationListMembersInput struct {
 	// When paginating, all other parameters provided to list members must match
 	// the call that provided the page token.
 	PageToken string
-	// A comma-separated list of fields to order by, sorted in ascending order.
-	// Use `desc` after a field name for descending.
+	// A comma-separated list of fields to order by.
 	//
-	// Supported fields:
-	// - `createTime`
-	// - `updateTime`
+	// Supports:
+	// - `displayName asc`
+	// - `email asc`
+	// - `createTime desc`
 	OrderBy string
 }
 
@@ -589,6 +629,15 @@ func (n *organizationsImpl) ListMembers(ctx context.Context, organizationId stri
 	req.SetIdempotent(true)
 
 	if input != nil {
+		if !internal.IsEmpty(input.DisplayName) {
+			req.SetQuery("displayName", input.DisplayName)
+		}
+		if !internal.IsEmpty(input.Email) {
+			req.SetQuery("email", input.Email)
+		}
+		if !internal.IsEmpty(input.RoleId) {
+			req.SetQuery("roleId", input.RoleId)
+		}
 		if !internal.IsEmpty(input.PageSize) {
 			req.SetQuery("pageSize", input.PageSize)
 		}
@@ -620,8 +669,6 @@ type OrganizationAddMemberInput struct {
 	// The identifier of the user.
 	UserId string
 	// The identifier of the role.
-	//
-	// This is currently limited to `member`, `admin`, and `owner`.
 	RoleId string
 }
 
@@ -695,8 +742,6 @@ func (n *organizationsImpl) GetMember(ctx context.Context, organizationId string
 // OrganizationUpdateMemberInput is the input param for the UpdateMember method.
 type OrganizationUpdateMemberInput struct {
 	// The identifier of the role.
-	//
-	// This is currently limited to `member`, `admin`, and `owner`.
 	RoleId types.Optional[string]
 
 	// If set to true, and the member is not found, a new member will be created.

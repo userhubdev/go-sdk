@@ -57,6 +57,22 @@ type usersImpl struct {
 
 // UserListInput is the input param for the List method.
 type UserListInput struct {
+	// Filter the results by display name.
+	//
+	// To enable prefix filtering append `*` to the end of the value
+	// and ensure you provide at least 3 characters excluding the
+	// wildcard.
+	//
+	// This filter is case-insensitivity.
+	DisplayName string
+	// Filter the results by email address.
+	//
+	// To enable prefix filtering append `*` to the end of the value
+	// and ensure you provide at least 3 characters excluding the
+	// wildcard.
+	//
+	// This filter is case-insensitivity.
+	Email string
 	// The maximum number of users to return. The API may return fewer than
 	// this value.
 	//
@@ -69,14 +85,14 @@ type UserListInput struct {
 	// When paginating, all other parameters provided to list users must match
 	// the call that provided the page token.
 	PageToken string
-	// A comma-separated list of fields to order by, sorted in ascending order.
-	// Use `desc` after a field name for descending.
+	// A comma-separated list of fields to order by.
 	//
-	// Supported fields:
-	// - `displayName`
-	// - `email`
-	// - `createTime`
-	// - `deleteTime`
+	// Supports:
+	// - `displayName asc`
+	// - `email asc`
+	// - `signupTime desc`
+	// - `createTime desc`
+	// - `deleteTime desc`
 	OrderBy string
 	// Whether to show deleted users.
 	ShowDeleted bool
@@ -95,6 +111,12 @@ func (n *usersImpl) List(ctx context.Context, input *UserListInput) (*adminv1.Li
 	req.SetIdempotent(true)
 
 	if input != nil {
+		if !internal.IsEmpty(input.DisplayName) {
+			req.SetQuery("displayName", input.DisplayName)
+		}
+		if !internal.IsEmpty(input.Email) {
+			req.SetQuery("email", input.Email)
+		}
 		if !internal.IsEmpty(input.PageSize) {
 			req.SetQuery("pageSize", input.PageSize)
 		}
