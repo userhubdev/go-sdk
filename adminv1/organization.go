@@ -46,6 +46,10 @@ type Organization struct {
 	Subscription *AccountSubscription `json:"subscription"`
 	// The sign-up time for the organization.
 	SignupTime time.Time `json:"signupTime"`
+	// The number of members in the organization.
+	//
+	// This includes disabled users, but does not include user's marked for deletion.
+	MemberCount int32 `json:"memberCount"`
 	// Whether the organization is disabled.
 	Disabled bool `json:"disabled"`
 	// The creation time of the organization.

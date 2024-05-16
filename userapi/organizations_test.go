@@ -24,6 +24,7 @@ func TestOrganizations_List(t *testing.T) {
       "email": "test@example.com",
       "emailVerified": true,
       "imageUrl": "https://example.com/test.png",
+      "memberCount": 1,
       "disabled": true
     }
   ],
@@ -55,6 +56,7 @@ func TestOrganizations_Create(t *testing.T) {
   "email": "test@example.com",
   "emailVerified": true,
   "imageUrl": "https://example.com/test.png",
+  "memberCount": 1,
   "disabled": true
 }`
 
@@ -82,6 +84,7 @@ func TestOrganizations_Get(t *testing.T) {
   "email": "test@example.com",
   "emailVerified": true,
   "imageUrl": "https://example.com/test.png",
+  "memberCount": 1,
   "disabled": true
 }`
 
@@ -109,6 +112,7 @@ func TestOrganizations_Update(t *testing.T) {
   "email": "test@example.com",
   "emailVerified": true,
   "imageUrl": "https://example.com/test.png",
+  "memberCount": 1,
   "disabled": true
 }`
 

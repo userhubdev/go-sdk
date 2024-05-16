@@ -16,6 +16,10 @@ type Organization struct {
 	EmailVerified bool `json:"emailVerified"`
 	// The photo/avatar URL of the organization.
 	ImageUrl string `json:"imageUrl"`
+	// The number of members in the organization.
+	//
+	// This includes disabled users, but does not include user's marked for deletion.
+	MemberCount int32 `json:"memberCount"`
 	// Whether the organization is disabled.
 	Disabled bool `json:"disabled"`
 }
