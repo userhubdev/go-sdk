@@ -85,6 +85,7 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
       "anchorTime": "2024-02-05T23:07:46.483Z"
     },
     "signupTime": "2024-02-05T23:07:46.483Z",
+    "memberCount": 1,
     "disabled": true,
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
@@ -237,6 +238,7 @@ func TestFlows_CreateSignup(t *testing.T) {
       "anchorTime": "2024-02-05T23:07:46.483Z"
     },
     "signupTime": "2024-02-05T23:07:46.483Z",
+    "memberCount": 1,
     "disabled": true,
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
@@ -389,6 +391,7 @@ func TestFlows_Get(t *testing.T) {
       "anchorTime": "2024-02-05T23:07:46.483Z"
     },
     "signupTime": "2024-02-05T23:07:46.483Z",
+    "memberCount": 1,
     "disabled": true,
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
@@ -541,6 +544,7 @@ func TestFlows_Cancel(t *testing.T) {
       "anchorTime": "2024-02-05T23:07:46.483Z"
     },
     "signupTime": "2024-02-05T23:07:46.483Z",
+    "memberCount": 1,
     "disabled": true,
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"

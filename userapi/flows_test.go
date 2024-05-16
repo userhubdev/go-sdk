@@ -59,6 +59,7 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
     "email": "test@example.com",
     "emailVerified": true,
     "imageUrl": "https://example.com/test.png",
+    "memberCount": 1,
     "disabled": true
   },
   "user": {
@@ -130,6 +131,7 @@ func TestFlows_CreateSignup(t *testing.T) {
     "email": "test@example.com",
     "emailVerified": true,
     "imageUrl": "https://example.com/test.png",
+    "memberCount": 1,
     "disabled": true
   },
   "user": {
@@ -201,6 +203,7 @@ func TestFlows_Get(t *testing.T) {
     "email": "test@example.com",
     "emailVerified": true,
     "imageUrl": "https://example.com/test.png",
+    "memberCount": 1,
     "disabled": true
   },
   "user": {
@@ -272,6 +275,7 @@ func TestFlows_Approve(t *testing.T) {
     "email": "test@example.com",
     "emailVerified": true,
     "imageUrl": "https://example.com/test.png",
+    "memberCount": 1,
     "disabled": true
   },
   "user": {
@@ -343,6 +347,7 @@ func TestFlows_Consume(t *testing.T) {
     "email": "test@example.com",
     "emailVerified": true,
     "imageUrl": "https://example.com/test.png",
+    "memberCount": 1,
     "disabled": true
   },
   "user": {
@@ -414,6 +419,7 @@ func TestFlows_Cancel(t *testing.T) {
     "email": "test@example.com",
     "emailVerified": true,
     "imageUrl": "https://example.com/test.png",
+    "memberCount": 1,
     "disabled": true
   },
   "user": {

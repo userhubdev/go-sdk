@@ -33,6 +33,7 @@ func TestOrganizations_List(t *testing.T) {
       "regionCode": "US",
       "timeZone": "America/New_York",
       "signupTime": "2024-02-05T23:07:46.483Z",
+      "memberCount": 1,
       "disabled": true,
       "createTime": "2024-02-05T23:07:46.483Z",
       "updateTime": "2024-02-05T23:07:46.483Z"
@@ -107,6 +108,7 @@ func TestOrganizations_Create(t *testing.T) {
     }
   },
   "signupTime": "2024-02-05T23:07:46.483Z",
+  "memberCount": 1,
   "disabled": true,
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
@@ -177,6 +179,7 @@ func TestOrganizations_Get(t *testing.T) {
     }
   },
   "signupTime": "2024-02-05T23:07:46.483Z",
+  "memberCount": 1,
   "disabled": true,
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
@@ -247,6 +250,7 @@ func TestOrganizations_Update(t *testing.T) {
     }
   },
   "signupTime": "2024-02-05T23:07:46.483Z",
+  "memberCount": 1,
   "disabled": true,
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
@@ -317,6 +321,7 @@ func TestOrganizations_Delete(t *testing.T) {
     }
   },
   "signupTime": "2024-02-05T23:07:46.483Z",
+  "memberCount": 1,
   "disabled": true,
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
@@ -387,6 +392,7 @@ func TestOrganizations_Undelete(t *testing.T) {
     }
   },
   "signupTime": "2024-02-05T23:07:46.483Z",
+  "memberCount": 1,
   "disabled": true,
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
@@ -457,6 +463,7 @@ func TestOrganizations_Connect(t *testing.T) {
     }
   },
   "signupTime": "2024-02-05T23:07:46.483Z",
+  "memberCount": 1,
   "disabled": true,
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
@@ -527,6 +534,7 @@ func TestOrganizations_Disconnect(t *testing.T) {
     }
   },
   "signupTime": "2024-02-05T23:07:46.483Z",
+  "memberCount": 1,
   "disabled": true,
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
