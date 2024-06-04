@@ -25,13 +25,15 @@ type subscriptionsImpl struct {
 // SubscriptionListInput is the input param for the List method.
 type SubscriptionListInput struct {
 	// Filter results by organization identifier.
-	//
-	// This is required if user identifier is not specified.
 	OrganizationId string
 	// Filter results by user identifier.
-	//
-	// This is required if organization identifier is not specified.
 	UserId string
+	// Filter results by state.
+	State string
+	// Filter results by plan group identifier.
+	//
+	// You can specify `unmanaged` to see all subscriptions without a plan.
+	PlanGroupId string
 	// The maximum number of subscriptions to return. The API may return fewer than
 	// this value.
 	//
@@ -46,9 +48,12 @@ type SubscriptionListInput struct {
 	PageToken string
 	// A comma-separated list of fields to order by.
 	//
+	// This is only supported when either `organizationId` or `userId` is specified.
+	//
 	// Supports:
 	// - `active desc`
 	// - `createTime desc`
+	// - `startTime desc`
 	OrderBy string
 	// The Subscription view to return in the results.
 	//
@@ -70,6 +75,12 @@ func (n *subscriptionsImpl) List(ctx context.Context, input *SubscriptionListInp
 		}
 		if !internal.IsEmpty(input.UserId) {
 			req.SetQuery("userId", input.UserId)
+		}
+		if !internal.IsEmpty(input.State) {
+			req.SetQuery("state", input.State)
+		}
+		if !internal.IsEmpty(input.PlanGroupId) {
+			req.SetQuery("planGroupId", input.PlanGroupId)
 		}
 		if !internal.IsEmpty(input.PageSize) {
 			req.SetQuery("pageSize", input.PageSize)
