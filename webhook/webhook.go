@@ -21,7 +21,13 @@ import (
 
 var (
 	errInternal = types.NewError("Webhook unhandled error").
-		SetApiCode(code.Internal)
+			SetApiCode(code.Internal)
+
+	// UserNotFound returns an error which can be used to indicate a
+	// user was not found in the OnGetUser, OnUpdateUser, and OnDeleteUser
+	// methods.
+	UserNotFound = types.NewError("User not found").
+			SetApiCode(code.NotFound)
 )
 
 // Webhook is a parsing and dispatch helper for UserHub webhooks.

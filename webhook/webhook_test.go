@@ -8,6 +8,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -17,6 +18,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/userhubdev/go-sdk/code"
+	"github.com/userhubdev/go-sdk/connectionsv1"
 	"github.com/userhubdev/go-sdk/eventsv1"
 	"github.com/userhubdev/go-sdk/internal"
 	"github.com/userhubdev/go-sdk/option"
@@ -300,6 +302,54 @@ func TestWebhook_Handle(t *testing.T) {
 				Body:       []byte(`{"message":"Event failed: fail","code":"INVALID_ARGUMENT"}`),
 			},
 		},
+		{
+			Name:         "List users",
+			Secret:       "test",
+			SetTimestamp: true,
+			AddSignature: true,
+			Request: Request{
+				Headers: headers(map[string]string{
+					"UserHub-Action": "users.list",
+				}),
+				Body: []byte(`{"pageSize":100}`),
+			},
+			Response: Response{
+				StatusCode: 200,
+				Body:       []byte(`{"nextPageToken":"","users":[]}`),
+			},
+		},
+		{
+			Name:         "Get user",
+			Secret:       "test",
+			SetTimestamp: true,
+			AddSignature: true,
+			Request: Request{
+				Headers: headers(map[string]string{
+					"UserHub-Action": "users.get",
+				}),
+				Body: []byte(`{"id": "1"}`),
+			},
+			Response: Response{
+				StatusCode: 200,
+				Body:       []byte(`{"id":"1","displayName":"","email":"","emailVerified":false,"phoneNumber":"","phoneNumberVerified":false,"imageUrl":"","disabled":false}`),
+			},
+		},
+		{
+			Name:         "Get user not found",
+			Secret:       "test",
+			SetTimestamp: true,
+			AddSignature: true,
+			Request: Request{
+				Headers: headers(map[string]string{
+					"UserHub-Action": "users.get",
+				}),
+				Body: []byte(`{"id": "not-found"}`),
+			},
+			Response: Response{
+				StatusCode: 404,
+				Body:       []byte(`{"message":"User not found","code":"NOT_FOUND"}`),
+			},
+		},
 	}
 
 	noLogger := option.WithOnError(func(ctx context.Context, err error) {})
@@ -318,6 +368,22 @@ func TestWebhook_Handle(t *testing.T) {
 					}
 
 					return nil
+				}).
+				OnListUsers(func(ctx context.Context, input *connectionsv1.ListCustomUsersRequest) (*connectionsv1.ListCustomUsersResponse, error) {
+					if input.PageSize != 100 {
+						return nil, fmt.Errorf("unexpected page size: %d", input.PageSize)
+					}
+
+					return &connectionsv1.ListCustomUsersResponse{Users: []*connectionsv1.CustomUser{}}, nil
+				}).
+				OnGetUser(func(ctx context.Context, input *connectionsv1.GetCustomUserRequest) (*connectionsv1.CustomUser, error) {
+					if input.Id == "not-found" {
+						return nil, UserNotFound
+					}
+
+					return &connectionsv1.CustomUser{
+						Id: input.Id,
+					}, nil
 				})
 
 			req := test.Request
