@@ -14,7 +14,7 @@ import (
 
 func defaultOnError(ctx context.Context, err error) {
 	if err != nil {
-		log.Println("Userhub webhook:", err.Error())
+		log.Println("UserHub webhook:", err.Error())
 	}
 }
 
