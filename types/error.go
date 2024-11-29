@@ -12,14 +12,15 @@ import (
 
 // UserHubError is the UserHub API error type.
 type UserHubError struct {
-	apiCode    code.Code
-	message    string
-	reason     string
-	param      string
-	metadata   map[string]string
-	call       string
-	statusCode int
-	cause      error
+	apiCode       code.Code
+	message       string
+	reason        string
+	param         string
+	metadata      map[string]string
+	localeMessage string
+	call          string
+	statusCode    int
+	cause         error
 }
 
 func NewError(format string, a ...any) *UserHubError {
@@ -73,6 +74,7 @@ func NewErrorFromStatus(
 		e.reason = status.Reason
 		e.param = status.Param
 		e.metadata = status.Metadata
+		e.localeMessage = status.LocaleMessage
 	}
 
 	return e
@@ -224,6 +226,21 @@ func (e *UserHubError) SetMetadata(v map[string]string) *UserHubError {
 	} else {
 		e2.metadata = nil
 	}
+	return e2
+}
+
+// LocaleMessage returns the user-facing error message.
+func (e *UserHubError) LocaleMessage() string {
+	if e == nil {
+		return ""
+	}
+	return e.localeMessage
+}
+
+// SetLocaleMessage return a new error with the specified user-facing error message.
+func (e *UserHubError) SetLocaleMessage(v string) *UserHubError {
+	e2 := e.clone()
+	e2.localeMessage = v
 	return e2
 }
 
