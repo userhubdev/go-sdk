@@ -4,9 +4,11 @@ package adminv1
 
 import (
 	"time"
+
+	"github.com/userhubdev/go-sdk/commonv1"
 )
 
-// A link between a account and an external account.
+// A link between an organization/user and an external account.
 type AccountConnection struct {
 	// The tenant connection.
 	Connection *Connection `json:"connection"`
@@ -18,6 +20,20 @@ type AccountConnection struct {
 	State string `json:"state"`
 	// The code that best describes the reason for the state.
 	StateReason string `json:"stateReason"`
+	// The human-readable display name of the external account.
+	DisplayName string `json:"displayName"`
+	// The email address of the external account.
+	Email string `json:"email"`
+	// Whether the external account's email address has been verified.
+	EmailVerified bool `json:"emailVerified"`
+	// The E164 phone number for the external account (e.g. `+12125550123`).
+	PhoneNumber string `json:"phoneNumber"`
+	// Whether the external account's phone number has been verified.
+	PhoneNumberVerified bool `json:"phoneNumberVerified"`
+	// The billing address for the external account.
+	Address *commonv1.Address `json:"address"`
+	// The currency code for the account.
+	CurrencyCode string `json:"currencyCode"`
 	// The balance amount for the account.
 	//
 	// A negative value indicates an amount which will be subtracted from the next
@@ -26,8 +42,6 @@ type AccountConnection struct {
 	// A positive value indicates an amount which will be added to the next
 	// invoice (debt).
 	BalanceAmount string `json:"balanceAmount"`
-	// The currency code for the account.
-	CurrencyCode string `json:"currencyCode"`
 	// The payment methods for connections that support it.
 	PaymentMethods []*PaymentMethod `json:"paymentMethods"`
 	// The last time the account was pulled from the connection.

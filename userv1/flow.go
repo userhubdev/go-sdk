@@ -22,12 +22,12 @@ type Flow struct {
 	User *User `json:"user"`
 	// The user who created the flow.
 	Creator *User `json:"creator"`
-	// The time the flow will expire.
-	ExpireTime time.Time `json:"expireTime"`
-	// The creation time of the flow.
-	CreateTime time.Time `json:"createTime"`
 	// The join organization flow type specific data.
 	JoinOrganization *JoinOrganizationFlow `json:"joinOrganization"`
 	// The signup flow type specific data.
 	Signup *SignupFlow `json:"signup"`
+	// The time the flow will expire.
+	ExpireTime time.Time `json:"expireTime"`
+	// The creation time of the flow.
+	CreateTime time.Time `json:"createTime"`
 }

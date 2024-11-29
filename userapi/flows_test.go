@@ -20,7 +20,7 @@ func TestFlows_List(t *testing.T) {
     {
       "id": "string",
       "state": "START_PENDING",
-      "stateReason": "DELETED",
+      "stateReason": "UPDATING",
       "type": "JOIN_ORGANIZATION",
       "expireTime": "2024-02-05T23:07:46.483Z",
       "createTime": "2024-02-05T23:07:46.483Z"
@@ -50,7 +50,7 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
 	tr.Body = `{
   "id": "string",
   "state": "START_PENDING",
-  "stateReason": "DELETED",
+  "stateReason": "UPDATING",
   "type": "JOIN_ORGANIZATION",
   "organization": {
     "id": "string",
@@ -80,8 +80,6 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
     "imageUrl": "https://example.com/test.png",
     "disabled": true
   },
-  "expireTime": "2024-02-05T23:07:46.483Z",
-  "createTime": "2024-02-05T23:07:46.483Z",
   "joinOrganization": {
     "displayName": "Test",
     "email": "test@example.com",
@@ -99,7 +97,9 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
     "email": "test@example.com",
     "displayName": "Test",
     "createOrganization": true
-  }
+  },
+  "expireTime": "2024-02-05T23:07:46.483Z",
+  "createTime": "2024-02-05T23:07:46.483Z"
 }`
 
 	n := &flowsImpl{transport: tr}
@@ -122,7 +122,7 @@ func TestFlows_CreateSignup(t *testing.T) {
 	tr.Body = `{
   "id": "string",
   "state": "START_PENDING",
-  "stateReason": "DELETED",
+  "stateReason": "UPDATING",
   "type": "JOIN_ORGANIZATION",
   "organization": {
     "id": "string",
@@ -152,8 +152,6 @@ func TestFlows_CreateSignup(t *testing.T) {
     "imageUrl": "https://example.com/test.png",
     "disabled": true
   },
-  "expireTime": "2024-02-05T23:07:46.483Z",
-  "createTime": "2024-02-05T23:07:46.483Z",
   "joinOrganization": {
     "displayName": "Test",
     "email": "test@example.com",
@@ -171,7 +169,9 @@ func TestFlows_CreateSignup(t *testing.T) {
     "email": "test@example.com",
     "displayName": "Test",
     "createOrganization": true
-  }
+  },
+  "expireTime": "2024-02-05T23:07:46.483Z",
+  "createTime": "2024-02-05T23:07:46.483Z"
 }`
 
 	n := &flowsImpl{transport: tr}
@@ -194,7 +194,7 @@ func TestFlows_Get(t *testing.T) {
 	tr.Body = `{
   "id": "string",
   "state": "START_PENDING",
-  "stateReason": "DELETED",
+  "stateReason": "UPDATING",
   "type": "JOIN_ORGANIZATION",
   "organization": {
     "id": "string",
@@ -224,8 +224,6 @@ func TestFlows_Get(t *testing.T) {
     "imageUrl": "https://example.com/test.png",
     "disabled": true
   },
-  "expireTime": "2024-02-05T23:07:46.483Z",
-  "createTime": "2024-02-05T23:07:46.483Z",
   "joinOrganization": {
     "displayName": "Test",
     "email": "test@example.com",
@@ -243,7 +241,9 @@ func TestFlows_Get(t *testing.T) {
     "email": "test@example.com",
     "displayName": "Test",
     "createOrganization": true
-  }
+  },
+  "expireTime": "2024-02-05T23:07:46.483Z",
+  "createTime": "2024-02-05T23:07:46.483Z"
 }`
 
 	n := &flowsImpl{transport: tr}
@@ -266,7 +266,7 @@ func TestFlows_Approve(t *testing.T) {
 	tr.Body = `{
   "id": "string",
   "state": "START_PENDING",
-  "stateReason": "DELETED",
+  "stateReason": "UPDATING",
   "type": "JOIN_ORGANIZATION",
   "organization": {
     "id": "string",
@@ -296,8 +296,6 @@ func TestFlows_Approve(t *testing.T) {
     "imageUrl": "https://example.com/test.png",
     "disabled": true
   },
-  "expireTime": "2024-02-05T23:07:46.483Z",
-  "createTime": "2024-02-05T23:07:46.483Z",
   "joinOrganization": {
     "displayName": "Test",
     "email": "test@example.com",
@@ -315,7 +313,9 @@ func TestFlows_Approve(t *testing.T) {
     "email": "test@example.com",
     "displayName": "Test",
     "createOrganization": true
-  }
+  },
+  "expireTime": "2024-02-05T23:07:46.483Z",
+  "createTime": "2024-02-05T23:07:46.483Z"
 }`
 
 	n := &flowsImpl{transport: tr}
@@ -338,7 +338,7 @@ func TestFlows_Consume(t *testing.T) {
 	tr.Body = `{
   "id": "string",
   "state": "START_PENDING",
-  "stateReason": "DELETED",
+  "stateReason": "UPDATING",
   "type": "JOIN_ORGANIZATION",
   "organization": {
     "id": "string",
@@ -368,8 +368,6 @@ func TestFlows_Consume(t *testing.T) {
     "imageUrl": "https://example.com/test.png",
     "disabled": true
   },
-  "expireTime": "2024-02-05T23:07:46.483Z",
-  "createTime": "2024-02-05T23:07:46.483Z",
   "joinOrganization": {
     "displayName": "Test",
     "email": "test@example.com",
@@ -387,7 +385,9 @@ func TestFlows_Consume(t *testing.T) {
     "email": "test@example.com",
     "displayName": "Test",
     "createOrganization": true
-  }
+  },
+  "expireTime": "2024-02-05T23:07:46.483Z",
+  "createTime": "2024-02-05T23:07:46.483Z"
 }`
 
 	n := &flowsImpl{transport: tr}
@@ -410,7 +410,7 @@ func TestFlows_Cancel(t *testing.T) {
 	tr.Body = `{
   "id": "string",
   "state": "START_PENDING",
-  "stateReason": "DELETED",
+  "stateReason": "UPDATING",
   "type": "JOIN_ORGANIZATION",
   "organization": {
     "id": "string",
@@ -440,8 +440,6 @@ func TestFlows_Cancel(t *testing.T) {
     "imageUrl": "https://example.com/test.png",
     "disabled": true
   },
-  "expireTime": "2024-02-05T23:07:46.483Z",
-  "createTime": "2024-02-05T23:07:46.483Z",
   "joinOrganization": {
     "displayName": "Test",
     "email": "test@example.com",
@@ -459,7 +457,9 @@ func TestFlows_Cancel(t *testing.T) {
     "email": "test@example.com",
     "displayName": "Test",
     "createOrganization": true
-  }
+  },
+  "expireTime": "2024-02-05T23:07:46.483Z",
+  "createTime": "2024-02-05T23:07:46.483Z"
 }`
 
 	n := &flowsImpl{transport: tr}

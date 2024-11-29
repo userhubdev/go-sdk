@@ -20,7 +20,7 @@ func TestUsers_List(t *testing.T) {
     {
       "id": "string",
       "state": "ACTIVE",
-      "stateReason": "DELETED",
+      "stateReason": "UPDATING",
       "uniqueId": "test",
       "displayName": "Test",
       "email": "test@example.com",
@@ -62,7 +62,7 @@ func TestUsers_Create(t *testing.T) {
 	tr.Body = `{
   "id": "string",
   "state": "ACTIVE",
-  "stateReason": "DELETED",
+  "stateReason": "UPDATING",
   "uniqueId": "test",
   "displayName": "Test",
   "email": "test@example.com",
@@ -88,9 +88,14 @@ func TestUsers_Create(t *testing.T) {
       "externalId": "string",
       "adminUrl": "https://example.com",
       "state": "ACTIVE",
-      "stateReason": "DELETED",
-      "balanceAmount": "string",
+      "stateReason": "UPDATING",
+      "displayName": "Test",
+      "email": "test@example.com",
+      "emailVerified": true,
+      "phoneNumber": "+12125550123",
+      "phoneNumberVerified": true,
       "currencyCode": "USD",
+      "balanceAmount": "10",
       "pullTime": "2024-02-05T23:07:46.483Z",
       "pushTime": "2024-02-05T23:07:46.483Z",
       "createTime": "2024-02-05T23:07:46.483Z",
@@ -138,7 +143,7 @@ func TestUsers_Get(t *testing.T) {
 	tr.Body = `{
   "id": "string",
   "state": "ACTIVE",
-  "stateReason": "DELETED",
+  "stateReason": "UPDATING",
   "uniqueId": "test",
   "displayName": "Test",
   "email": "test@example.com",
@@ -164,9 +169,14 @@ func TestUsers_Get(t *testing.T) {
       "externalId": "string",
       "adminUrl": "https://example.com",
       "state": "ACTIVE",
-      "stateReason": "DELETED",
-      "balanceAmount": "string",
+      "stateReason": "UPDATING",
+      "displayName": "Test",
+      "email": "test@example.com",
+      "emailVerified": true,
+      "phoneNumber": "+12125550123",
+      "phoneNumberVerified": true,
       "currencyCode": "USD",
+      "balanceAmount": "10",
       "pullTime": "2024-02-05T23:07:46.483Z",
       "pushTime": "2024-02-05T23:07:46.483Z",
       "createTime": "2024-02-05T23:07:46.483Z",
@@ -214,7 +224,7 @@ func TestUsers_Update(t *testing.T) {
 	tr.Body = `{
   "id": "string",
   "state": "ACTIVE",
-  "stateReason": "DELETED",
+  "stateReason": "UPDATING",
   "uniqueId": "test",
   "displayName": "Test",
   "email": "test@example.com",
@@ -240,9 +250,14 @@ func TestUsers_Update(t *testing.T) {
       "externalId": "string",
       "adminUrl": "https://example.com",
       "state": "ACTIVE",
-      "stateReason": "DELETED",
-      "balanceAmount": "string",
+      "stateReason": "UPDATING",
+      "displayName": "Test",
+      "email": "test@example.com",
+      "emailVerified": true,
+      "phoneNumber": "+12125550123",
+      "phoneNumberVerified": true,
       "currencyCode": "USD",
+      "balanceAmount": "10",
       "pullTime": "2024-02-05T23:07:46.483Z",
       "pushTime": "2024-02-05T23:07:46.483Z",
       "createTime": "2024-02-05T23:07:46.483Z",
@@ -290,7 +305,7 @@ func TestUsers_Delete(t *testing.T) {
 	tr.Body = `{
   "id": "string",
   "state": "ACTIVE",
-  "stateReason": "DELETED",
+  "stateReason": "UPDATING",
   "uniqueId": "test",
   "displayName": "Test",
   "email": "test@example.com",
@@ -316,9 +331,14 @@ func TestUsers_Delete(t *testing.T) {
       "externalId": "string",
       "adminUrl": "https://example.com",
       "state": "ACTIVE",
-      "stateReason": "DELETED",
-      "balanceAmount": "string",
+      "stateReason": "UPDATING",
+      "displayName": "Test",
+      "email": "test@example.com",
+      "emailVerified": true,
+      "phoneNumber": "+12125550123",
+      "phoneNumberVerified": true,
       "currencyCode": "USD",
+      "balanceAmount": "10",
       "pullTime": "2024-02-05T23:07:46.483Z",
       "pushTime": "2024-02-05T23:07:46.483Z",
       "createTime": "2024-02-05T23:07:46.483Z",
@@ -366,7 +386,7 @@ func TestUsers_Undelete(t *testing.T) {
 	tr.Body = `{
   "id": "string",
   "state": "ACTIVE",
-  "stateReason": "DELETED",
+  "stateReason": "UPDATING",
   "uniqueId": "test",
   "displayName": "Test",
   "email": "test@example.com",
@@ -392,9 +412,14 @@ func TestUsers_Undelete(t *testing.T) {
       "externalId": "string",
       "adminUrl": "https://example.com",
       "state": "ACTIVE",
-      "stateReason": "DELETED",
-      "balanceAmount": "string",
+      "stateReason": "UPDATING",
+      "displayName": "Test",
+      "email": "test@example.com",
+      "emailVerified": true,
+      "phoneNumber": "+12125550123",
+      "phoneNumberVerified": true,
       "currencyCode": "USD",
+      "balanceAmount": "10",
       "pullTime": "2024-02-05T23:07:46.483Z",
       "pushTime": "2024-02-05T23:07:46.483Z",
       "createTime": "2024-02-05T23:07:46.483Z",
@@ -435,6 +460,25 @@ func TestUsers_Undelete(t *testing.T) {
 	require.NotNil(t, res)
 }
 
+func TestUsers_Purge(t *testing.T) {
+	t.Parallel()
+
+	tr := &internal.TestTransport{}
+	tr.Body = `{}`
+
+	n := &usersImpl{transport: tr}
+
+	res, err := n.Purge(context.Background(), "userId", nil)
+	require.NoError(t, err)
+	require.NotNil(t, res)
+	require.Equal(t, `POST`, tr.Request.Method())
+	require.Equal(t, `/admin/v1/users/userId:purge`, tr.Request.Path())
+
+	res, err = n.Purge(context.Background(), "userId", &UserPurgeInput{})
+	require.NoError(t, err)
+	require.NotNil(t, res)
+}
+
 func TestUsers_Connect(t *testing.T) {
 	t.Parallel()
 
@@ -442,7 +486,7 @@ func TestUsers_Connect(t *testing.T) {
 	tr.Body = `{
   "id": "string",
   "state": "ACTIVE",
-  "stateReason": "DELETED",
+  "stateReason": "UPDATING",
   "uniqueId": "test",
   "displayName": "Test",
   "email": "test@example.com",
@@ -468,9 +512,14 @@ func TestUsers_Connect(t *testing.T) {
       "externalId": "string",
       "adminUrl": "https://example.com",
       "state": "ACTIVE",
-      "stateReason": "DELETED",
-      "balanceAmount": "string",
+      "stateReason": "UPDATING",
+      "displayName": "Test",
+      "email": "test@example.com",
+      "emailVerified": true,
+      "phoneNumber": "+12125550123",
+      "phoneNumberVerified": true,
       "currencyCode": "USD",
+      "balanceAmount": "10",
       "pullTime": "2024-02-05T23:07:46.483Z",
       "pushTime": "2024-02-05T23:07:46.483Z",
       "createTime": "2024-02-05T23:07:46.483Z",
@@ -518,7 +567,7 @@ func TestUsers_Disconnect(t *testing.T) {
 	tr.Body = `{
   "id": "string",
   "state": "ACTIVE",
-  "stateReason": "DELETED",
+  "stateReason": "UPDATING",
   "uniqueId": "test",
   "displayName": "Test",
   "email": "test@example.com",
@@ -544,9 +593,14 @@ func TestUsers_Disconnect(t *testing.T) {
       "externalId": "string",
       "adminUrl": "https://example.com",
       "state": "ACTIVE",
-      "stateReason": "DELETED",
-      "balanceAmount": "string",
+      "stateReason": "UPDATING",
+      "displayName": "Test",
+      "email": "test@example.com",
+      "emailVerified": true,
+      "phoneNumber": "+12125550123",
+      "phoneNumberVerified": true,
       "currencyCode": "USD",
+      "balanceAmount": "10",
       "pullTime": "2024-02-05T23:07:46.483Z",
       "pushTime": "2024-02-05T23:07:46.483Z",
       "createTime": "2024-02-05T23:07:46.483Z",
@@ -594,7 +648,7 @@ func TestUsers_ImportAccount(t *testing.T) {
 	tr.Body = `{
   "id": "string",
   "state": "ACTIVE",
-  "stateReason": "DELETED",
+  "stateReason": "UPDATING",
   "uniqueId": "test",
   "displayName": "Test",
   "email": "test@example.com",
@@ -620,9 +674,14 @@ func TestUsers_ImportAccount(t *testing.T) {
       "externalId": "string",
       "adminUrl": "https://example.com",
       "state": "ACTIVE",
-      "stateReason": "DELETED",
-      "balanceAmount": "string",
+      "stateReason": "UPDATING",
+      "displayName": "Test",
+      "email": "test@example.com",
+      "emailVerified": true,
+      "phoneNumber": "+12125550123",
+      "phoneNumberVerified": true,
       "currencyCode": "USD",
+      "balanceAmount": "10",
       "pullTime": "2024-02-05T23:07:46.483Z",
       "pushTime": "2024-02-05T23:07:46.483Z",
       "createTime": "2024-02-05T23:07:46.483Z",

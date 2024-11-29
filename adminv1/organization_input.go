@@ -46,7 +46,7 @@ type OrganizationInput struct {
 	RegionCode *string `json:"regionCode"`
 	// The IANA time zone for the organization (e.g. `America/New_York`).
 	TimeZone *string `json:"timeZone"`
-	// The billing address for the organization.
+	// The default address for the organization.
 	Address *commonv1.Address `json:"address"`
 	// The sign-up time for the organization.
 	SignupTime *time.Time `json:"signupTime"`

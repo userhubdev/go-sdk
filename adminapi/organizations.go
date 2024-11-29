@@ -28,6 +28,10 @@ type Organizations interface {
 	Delete(ctx context.Context, organizationId string, input *OrganizationDeleteInput) (*adminv1.Organization, error)
 	// Un-marks specified organization for deletion.
 	Undelete(ctx context.Context, organizationId string, input *OrganizationUndeleteInput) (*adminv1.Organization, error)
+	// Hard delete the specified organization.
+	//
+	// The organization must be marked for deletion before it can be purged.
+	Purge(ctx context.Context, organizationId string, input *OrganizationPurgeInput) (*adminv1.PurgeOrganizationResponse, error)
 	// Connect specified organization to external account.
 	Connect(ctx context.Context, organizationId string, input *OrganizationConnectInput) (*adminv1.Organization, error)
 	// Disconnect specified organization from external account.
@@ -187,7 +191,7 @@ type OrganizationCreateInput struct {
 	RegionCode string
 	// The IANA time zone for the organization (e.g. `America/New_York`).
 	TimeZone string
-	// The billing address for the organization.
+	// The default address for the organization.
 	Address *commonv1.Address
 	// The sign-up time for the organization.
 	SignupTime time.Time
@@ -331,7 +335,7 @@ type OrganizationUpdateInput struct {
 	RegionCode types.Optional[string]
 	// The IANA time zone for the organization (e.g. `America/New_York`).
 	TimeZone types.Optional[string]
-	// The billing address for the organization.
+	// The default address for the organization.
 	Address types.Optional[*commonv1.Address]
 	// The sign-up time for the organization.
 	SignupTime types.Optional[time.Time]
@@ -474,6 +478,38 @@ func (n *organizationsImpl) Undelete(ctx context.Context, organizationId string,
 	}
 
 	model := &adminv1.Organization{}
+
+	err = res.DecodeBody(&model)
+	if err != nil {
+		return nil, err
+	}
+
+	return model, nil
+}
+
+// OrganizationPurgeInput is the input param for the Purge method.
+type OrganizationPurgeInput struct {
+}
+
+func (n *organizationsImpl) Purge(ctx context.Context, organizationId string, input *OrganizationPurgeInput) (*adminv1.PurgeOrganizationResponse, error) {
+	req := internal.NewRequest(
+		"admin.organizations.purge",
+		"POST",
+		fmt.Sprintf("/admin/v1/organizations/%s:purge",
+			url.PathEscape(organizationId),
+		),
+	)
+
+	body := map[string]any{}
+
+	req.SetBody(body)
+
+	res, err := n.transport.Execute(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	model := &adminv1.PurgeOrganizationResponse{}
 
 	err = res.DecodeBody(&model)
 	if err != nil {

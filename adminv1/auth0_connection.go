@@ -10,4 +10,9 @@ type Auth0Connection struct {
 	ClientId string `json:"clientId"`
 	// The Auth0 client secret.
 	ClientSecret string `json:"clientSecret"`
+	// OpenID Connect (OIDC) configuration.
+	//
+	// If configured, this can be used instead of implementing a
+	// Portal callback.
+	Oidc *OidcConfig `json:"oidc"`
 }

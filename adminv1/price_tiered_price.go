@@ -8,5 +8,5 @@ type PriceTieredPrice struct {
 	// The strategy for evaluating the tiers.
 	Mode string `json:"mode"`
 	// The tiers for the price.
-	Tiers []*TieredPriceTier `json:"tiers"`
+	Tiers []*PriceTieredPriceTier `json:"tiers"`
 }

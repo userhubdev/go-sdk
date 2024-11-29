@@ -27,7 +27,7 @@ type PlanGroup struct {
 	//
 	// The maximum length is 200 characters.
 	DisplayName string `json:"displayName"`
-	// The admin facing description of the plan group.
+	// The admin-facing description of the plan group.
 	//
 	// The maximum length is 1000 characters.
 	Description string `json:"description"`

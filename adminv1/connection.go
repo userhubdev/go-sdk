@@ -36,6 +36,8 @@ type Connection struct {
 	CreateTime time.Time `json:"createTime"`
 	// The last update time of the connection.
 	UpdateTime time.Time `json:"updateTime"`
+	// The Amazon Cognito connection data.
+	AmazonCognito *AmazonCognitoConnection `json:"amazonCognito"`
 	// The Auth0 connection data.
 	Auth0 *Auth0Connection `json:"auth0"`
 	// The builtin email configuration data.

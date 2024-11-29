@@ -56,3 +56,46 @@ func TestSession_Get(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, res)
 }
+
+func TestSession_ExchangeToken(t *testing.T) {
+	t.Parallel()
+
+	tr := &internal.TestTransport{}
+	tr.Body = `{
+  "accessToken": "string",
+  "expireTime": "2024-02-05T23:07:46.483Z"
+}`
+
+	n := &sessionImpl{transport: tr}
+
+	res, err := n.ExchangeToken(context.Background(), nil)
+	require.NoError(t, err)
+	require.NotNil(t, res)
+	require.Equal(t, `POST`, tr.Request.Method())
+	require.Equal(t, `/user/v1/session:exchangeToken`, tr.Request.Path())
+
+	res, err = n.ExchangeToken(context.Background(), &SessionExchangeTokenInput{})
+	require.NoError(t, err)
+	require.NotNil(t, res)
+}
+
+func TestSession_CreatePortal(t *testing.T) {
+	t.Parallel()
+
+	tr := &internal.TestTransport{}
+	tr.Body = `{
+  "redirectUrl": "https://example.com"
+}`
+
+	n := &sessionImpl{transport: tr}
+
+	res, err := n.CreatePortal(context.Background(), nil)
+	require.NoError(t, err)
+	require.NotNil(t, res)
+	require.Equal(t, `POST`, tr.Request.Method())
+	require.Equal(t, `/user/v1/session:createPortal`, tr.Request.Path())
+
+	res, err = n.CreatePortal(context.Background(), &SessionCreatePortalInput{})
+	require.NoError(t, err)
+	require.NotNil(t, res)
+}

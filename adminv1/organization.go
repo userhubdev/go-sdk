@@ -38,7 +38,7 @@ type Organization struct {
 	RegionCode string `json:"regionCode"`
 	// The IANA time zone for the organization (e.g. `America/New_York`).
 	TimeZone string `json:"timeZone"`
-	// The address for the organization.
+	// The default address for the organization.
 	Address *commonv1.Address `json:"address"`
 	// The connected accounts.
 	AccountConnections []*AccountConnection `json:"accountConnections"`
