@@ -14,4 +14,6 @@ type Status struct {
 	Param string `json:"param"`
 	// Additional metadata related to the error.
 	Metadata map[string]string `json:"metadata"`
+	// A user-facing error message.
+	LocaleMessage string `json:"localeMessage"`
 }

@@ -20,7 +20,7 @@ func TestFlows_List(t *testing.T) {
     {
       "id": "string",
       "state": "START_PENDING",
-      "stateReason": "DELETED",
+      "stateReason": "UPDATING",
       "type": "JOIN_ORGANIZATION",
       "startTime": "2024-02-05T23:07:46.483Z",
       "expireTime": "2024-02-05T23:07:46.483Z",
@@ -54,12 +54,12 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
 	tr.Body = `{
   "id": "string",
   "state": "START_PENDING",
-  "stateReason": "DELETED",
+  "stateReason": "UPDATING",
   "type": "JOIN_ORGANIZATION",
   "organization": {
     "id": "string",
     "state": "ACTIVE",
-    "stateReason": "DELETED",
+    "stateReason": "UPDATING",
     "uniqueId": "test",
     "displayName": "Test",
     "email": "test@example.com",
@@ -93,7 +93,7 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
   "user": {
     "id": "string",
     "state": "ACTIVE",
-    "stateReason": "DELETED",
+    "stateReason": "UPDATING",
     "uniqueId": "test",
     "displayName": "Test",
     "email": "test@example.com",
@@ -127,7 +127,7 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
   "creator": {
     "id": "string",
     "state": "ACTIVE",
-    "stateReason": "DELETED",
+    "stateReason": "UPDATING",
     "uniqueId": "test",
     "displayName": "Test",
     "email": "test@example.com",
@@ -207,12 +207,12 @@ func TestFlows_CreateSignup(t *testing.T) {
 	tr.Body = `{
   "id": "string",
   "state": "START_PENDING",
-  "stateReason": "DELETED",
+  "stateReason": "UPDATING",
   "type": "JOIN_ORGANIZATION",
   "organization": {
     "id": "string",
     "state": "ACTIVE",
-    "stateReason": "DELETED",
+    "stateReason": "UPDATING",
     "uniqueId": "test",
     "displayName": "Test",
     "email": "test@example.com",
@@ -246,7 +246,7 @@ func TestFlows_CreateSignup(t *testing.T) {
   "user": {
     "id": "string",
     "state": "ACTIVE",
-    "stateReason": "DELETED",
+    "stateReason": "UPDATING",
     "uniqueId": "test",
     "displayName": "Test",
     "email": "test@example.com",
@@ -280,7 +280,7 @@ func TestFlows_CreateSignup(t *testing.T) {
   "creator": {
     "id": "string",
     "state": "ACTIVE",
-    "stateReason": "DELETED",
+    "stateReason": "UPDATING",
     "uniqueId": "test",
     "displayName": "Test",
     "email": "test@example.com",
@@ -360,12 +360,12 @@ func TestFlows_Get(t *testing.T) {
 	tr.Body = `{
   "id": "string",
   "state": "START_PENDING",
-  "stateReason": "DELETED",
+  "stateReason": "UPDATING",
   "type": "JOIN_ORGANIZATION",
   "organization": {
     "id": "string",
     "state": "ACTIVE",
-    "stateReason": "DELETED",
+    "stateReason": "UPDATING",
     "uniqueId": "test",
     "displayName": "Test",
     "email": "test@example.com",
@@ -399,7 +399,7 @@ func TestFlows_Get(t *testing.T) {
   "user": {
     "id": "string",
     "state": "ACTIVE",
-    "stateReason": "DELETED",
+    "stateReason": "UPDATING",
     "uniqueId": "test",
     "displayName": "Test",
     "email": "test@example.com",
@@ -433,7 +433,7 @@ func TestFlows_Get(t *testing.T) {
   "creator": {
     "id": "string",
     "state": "ACTIVE",
-    "stateReason": "DELETED",
+    "stateReason": "UPDATING",
     "uniqueId": "test",
     "displayName": "Test",
     "email": "test@example.com",
@@ -513,12 +513,12 @@ func TestFlows_Cancel(t *testing.T) {
 	tr.Body = `{
   "id": "string",
   "state": "START_PENDING",
-  "stateReason": "DELETED",
+  "stateReason": "UPDATING",
   "type": "JOIN_ORGANIZATION",
   "organization": {
     "id": "string",
     "state": "ACTIVE",
-    "stateReason": "DELETED",
+    "stateReason": "UPDATING",
     "uniqueId": "test",
     "displayName": "Test",
     "email": "test@example.com",
@@ -552,7 +552,7 @@ func TestFlows_Cancel(t *testing.T) {
   "user": {
     "id": "string",
     "state": "ACTIVE",
-    "stateReason": "DELETED",
+    "stateReason": "UPDATING",
     "uniqueId": "test",
     "displayName": "Test",
     "email": "test@example.com",
@@ -586,7 +586,7 @@ func TestFlows_Cancel(t *testing.T) {
   "creator": {
     "id": "string",
     "state": "ACTIVE",
-    "stateReason": "DELETED",
+    "stateReason": "UPDATING",
     "uniqueId": "test",
     "displayName": "Test",
     "email": "test@example.com",

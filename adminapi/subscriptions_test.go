@@ -20,7 +20,7 @@ func TestSubscriptions_List(t *testing.T) {
     {
       "id": "string",
       "state": "ACTIVE",
-      "stateReason": "DELETED",
+      "stateReason": "UPDATING",
       "externalId": "string",
       "currencyCode": "USD",
       "cancelPeriodEnd": true,
@@ -58,25 +58,31 @@ func TestSubscriptions_Get(t *testing.T) {
 	tr.Body = `{
   "id": "string",
   "state": "ACTIVE",
-  "stateReason": "DELETED",
+  "stateReason": "UPDATING",
   "connection": {
     "id": "string",
     "uniqueId": "test",
     "displayName": "Test",
-    "state": "PENDING_SETUP",
-    "stateReason": "DELETED",
-    "type": "string",
+    "state": "ACTIVE",
+    "stateReason": "UPDATING",
+    "type": "AMAZON_COGNITO",
     "delegate": {
       "id": "string",
       "uniqueId": "test",
       "displayName": "Test",
-      "state": "PENDING_SETUP",
-      "stateReason": "DELETED",
-      "type": "string"
+      "state": "ACTIVE",
+      "stateReason": "UPDATING",
+      "type": "AMAZON_COGNITO"
     },
     "providers": [],
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z",
+    "amazonCognito": {
+      "userPoolId": "string",
+      "region": "string",
+      "accessKeyId": "string",
+      "accessKeySecret": "string"
+    },
     "auth0": {
       "domain": "string",
       "clientId": "string",
@@ -138,10 +144,10 @@ func TestSubscriptions_Get(t *testing.T) {
     "id": "string",
     "externalId": "string",
     "state": "ACTIVE",
-    "stateReason": "DELETED",
-    "type": "string",
+    "stateReason": "UPDATING",
+    "type": "CARD",
     "displayName": "Test",
-    "fullName": "Test",
+    "fullName": "Jane Doe",
     "address": {
       "lines": [],
       "city": "Brooklyn",
@@ -155,7 +161,8 @@ func TestSubscriptions_Get(t *testing.T) {
       "message": "string",
       "reason": "string",
       "param": "string",
-      "metadata": {}
+      "metadata": {},
+      "localeMessage": "string"
     },
     "pullTime": "2024-02-05T23:07:46.483Z",
     "createTime": "2024-02-05T23:07:46.483Z",
@@ -185,7 +192,7 @@ func TestSubscriptions_Get(t *testing.T) {
   "organization": {
     "id": "string",
     "state": "ACTIVE",
-    "stateReason": "DELETED",
+    "stateReason": "UPDATING",
     "uniqueId": "test",
     "displayName": "Test",
     "email": "test@example.com",
@@ -219,7 +226,7 @@ func TestSubscriptions_Get(t *testing.T) {
   "user": {
     "id": "string",
     "state": "ACTIVE",
-    "stateReason": "DELETED",
+    "stateReason": "UPDATING",
     "uniqueId": "test",
     "displayName": "Test",
     "email": "test@example.com",

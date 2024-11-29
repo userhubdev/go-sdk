@@ -38,7 +38,7 @@ type User struct {
 	RegionCode string `json:"regionCode"`
 	// The IANA time zone for the user (e.g. `America/New_York`).
 	TimeZone string `json:"timeZone"`
-	// The billing address for the user.
+	// The default address for the user.
 	Address *commonv1.Address `json:"address"`
 	// The connected accounts.
 	AccountConnections []*AccountConnection `json:"accountConnections"`

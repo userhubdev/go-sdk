@@ -10,4 +10,6 @@ type StripePaymentMethodIntent struct {
 	Live bool `json:"live"`
 	// The Stripe Setup Intent client secret.
 	ClientSecret string `json:"clientSecret"`
+	// The Stripe.js Payment Element options.
+	PaymentElementOptions map[string]any `json:"paymentElementOptions"`
 }

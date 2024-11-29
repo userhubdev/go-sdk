@@ -20,21 +20,21 @@ func TestInvoices_List(t *testing.T) {
     {
       "id": "string",
       "state": "DRAFT",
-      "stateReason": "DELETED",
+      "stateReason": "UPDATING",
       "stateTime": "2024-02-05T23:07:46.483Z",
       "externalId": "string",
       "number": "string",
       "currencyCode": "USD",
       "description": "string",
       "effectiveTime": "2024-02-05T23:07:46.483Z",
-      "subtotalAmount": "string",
-      "discountAmount": "string",
-      "taxAmount": "string",
-      "totalAmount": "string",
-      "dueAmount": "string",
-      "remainingDueAmount": "string",
+      "subtotalAmount": "10",
+      "discountAmount": "0",
+      "taxAmount": "0",
+      "totalAmount": "10",
+      "dueAmount": "10",
+      "remainingDueAmount": "0",
       "dueTime": "2024-02-05T23:07:46.483Z",
-      "paidAmount": "string",
+      "paidAmount": "10",
       "paymentState": "PAYMENT_METHOD_REQUIRED",
       "pullTime": "2024-02-05T23:07:46.483Z",
       "createTime": "2024-02-05T23:07:46.483Z",
@@ -65,26 +65,32 @@ func TestInvoices_Get(t *testing.T) {
 	tr.Body = `{
   "id": "string",
   "state": "DRAFT",
-  "stateReason": "DELETED",
+  "stateReason": "UPDATING",
   "stateTime": "2024-02-05T23:07:46.483Z",
   "connection": {
     "id": "string",
     "uniqueId": "test",
     "displayName": "Test",
-    "state": "PENDING_SETUP",
-    "stateReason": "DELETED",
-    "type": "string",
+    "state": "ACTIVE",
+    "stateReason": "UPDATING",
+    "type": "AMAZON_COGNITO",
     "delegate": {
       "id": "string",
       "uniqueId": "test",
       "displayName": "Test",
-      "state": "PENDING_SETUP",
-      "stateReason": "DELETED",
-      "type": "string"
+      "state": "ACTIVE",
+      "stateReason": "UPDATING",
+      "type": "AMAZON_COGNITO"
     },
     "providers": [],
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z",
+    "amazonCognito": {
+      "userPoolId": "string",
+      "region": "string",
+      "accessKeyId": "string",
+      "accessKeySecret": "string"
+    },
     "auth0": {
       "domain": "string",
       "clientId": "string",
@@ -116,7 +122,7 @@ func TestInvoices_Get(t *testing.T) {
   "currencyCode": "USD",
   "description": "string",
   "account": {
-    "fullName": "Test",
+    "fullName": "Jane Doe",
     "email": "test@example.com",
     "phoneNumber": "+12125550123",
     "address": {
@@ -132,19 +138,19 @@ func TestInvoices_Get(t *testing.T) {
     "startTime": "2024-02-05T23:07:46.483Z",
     "endTime": "2024-02-05T23:07:46.483Z"
   },
-  "subtotalAmount": "string",
-  "discountAmount": "string",
+  "subtotalAmount": "10",
+  "discountAmount": "0",
   "balance": {
-    "startAmount": "string",
-    "endAmount": "string",
-    "appliedAmount": "string"
+    "startAmount": "10",
+    "endAmount": "10",
+    "appliedAmount": "10"
   },
-  "taxAmount": "string",
-  "totalAmount": "string",
-  "dueAmount": "string",
-  "remainingDueAmount": "string",
+  "taxAmount": "0",
+  "totalAmount": "10",
+  "dueAmount": "10",
+  "remainingDueAmount": "0",
   "dueTime": "2024-02-05T23:07:46.483Z",
-  "paidAmount": "string",
+  "paidAmount": "10",
   "paymentState": "PAYMENT_METHOD_REQUIRED",
   "paymentIntent": {
     "stripe": {
@@ -157,8 +163,8 @@ func TestInvoices_Get(t *testing.T) {
     {
       "id": "string",
       "quantity": 1,
-      "subtotalAmount": "string",
-      "discountAmount": "string",
+      "subtotalAmount": "10",
+      "discountAmount": "0",
       "description": "string",
       "externalId": "string",
       "proration": true
@@ -168,8 +174,8 @@ func TestInvoices_Get(t *testing.T) {
     {
       "time": "2024-02-05T23:07:46.483Z",
       "description": "string",
-      "subtotalAmount": "string",
-      "discountAmount": "string",
+      "subtotalAmount": "10",
+      "discountAmount": "0",
       "startQuantity": 1,
       "endQuantity": 1,
       "startItemIds": [],

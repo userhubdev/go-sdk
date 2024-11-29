@@ -17,7 +17,7 @@ type PlanGroupRevisionPlan struct {
 	Interval *commonv1.Interval `json:"interval"`
 	// The customer facing human-readable display name for the plan.
 	DisplayName string `json:"displayName"`
-	// The admin facing description of the plan.
+	// The admin-facing description of the plan.
 	//
 	// The maximum length is 1000 characters.
 	Description string `json:"description"`

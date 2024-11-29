@@ -27,6 +27,10 @@ type Users interface {
 	Delete(ctx context.Context, userId string, input *UserDeleteInput) (*adminv1.User, error)
 	// Un-marks specified user for deletion.
 	Undelete(ctx context.Context, userId string, input *UserUndeleteInput) (*adminv1.User, error)
+	// Hard delete the specified user.
+	//
+	// The user must be marked for deletion before it can be purged.
+	Purge(ctx context.Context, userId string, input *UserPurgeInput) (*adminv1.PurgeUserResponse, error)
 	// Connect specified user to external account.
 	Connect(ctx context.Context, userId string, input *UserConnectInput) (*adminv1.User, error)
 	// Disconnect specified user from external account.
@@ -185,7 +189,7 @@ type UserCreateInput struct {
 	RegionCode string
 	// The IANA time zone for the user (e.g. `America/New_York`).
 	TimeZone string
-	// The billing address for the user.
+	// The default address for the user.
 	Address *commonv1.Address
 	// The sign-up time for the user.
 	SignupTime time.Time
@@ -329,7 +333,7 @@ type UserUpdateInput struct {
 	RegionCode types.Optional[string]
 	// The IANA time zone for the user (e.g. `America/New_York`).
 	TimeZone types.Optional[string]
-	// The billing address for the user.
+	// The default address for the user.
 	Address types.Optional[*commonv1.Address]
 	// The sign-up time for the user.
 	SignupTime types.Optional[time.Time]
@@ -470,6 +474,38 @@ func (n *usersImpl) Undelete(ctx context.Context, userId string, input *UserUnde
 	}
 
 	model := &adminv1.User{}
+
+	err = res.DecodeBody(&model)
+	if err != nil {
+		return nil, err
+	}
+
+	return model, nil
+}
+
+// UserPurgeInput is the input param for the Purge method.
+type UserPurgeInput struct {
+}
+
+func (n *usersImpl) Purge(ctx context.Context, userId string, input *UserPurgeInput) (*adminv1.PurgeUserResponse, error) {
+	req := internal.NewRequest(
+		"admin.users.purge",
+		"POST",
+		fmt.Sprintf("/admin/v1/users/%s:purge",
+			url.PathEscape(userId),
+		),
+	)
+
+	body := map[string]any{}
+
+	req.SetBody(body)
+
+	res, err := n.transport.Execute(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	model := &adminv1.PurgeUserResponse{}
 
 	err = res.DecodeBody(&model)
 	if err != nil {
@@ -641,7 +677,7 @@ func (n *usersImpl) CreateApiSession(ctx context.Context, userId string, input *
 
 // UserCreatePortalSessionInput is the input param for the CreatePortalSession method.
 type UserCreatePortalSessionInput struct {
-	// The portal URL, this is the target URL on the portal site.
+	// The Portal URL, this is the target URL on the portal site.
 	//
 	// If not defined the root URL for the portal will be used.
 	//
@@ -655,8 +691,9 @@ type UserCreatePortalSessionInput struct {
 	//
 	// Examples:
 	// * `/{accountId}` - the billing dashboard
-	// * `/{accountId}/plans` - select a plan to checkout
-	// * `/{accountId}/checkout/<some-plan-id>` - checkout specified plan
+	// * `/{accountId}/checkout` - start a checkout
+	// * `/{accountId}/checkout/<some-plan-id>` - start a checkout with a specified plan
+	// * `/{accountId}/cancel` - cancel current plan
 	// * `/{accountId}/members` - manage organization members
 	// * `/{accountId}/invite` - invite a user to an organization
 	PortalUrl string
