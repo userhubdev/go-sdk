@@ -11,10 +11,8 @@ const (
 	UserAgent  = "UserHub-Go/0.7.0"
 	Version    = "0.7.0"
 
-	AuthHeader     = "Authorization"
-	ApiKeyHeader   = "UserHub-Api-Key"
-	AdminKeyPrefix = "sk_"
-	UserKeyPrefix  = "pk_"
+	AuthHeader   = "Authorization"
+	ApiKeyHeader = "UserHub-Api-Key"
 
 	WebhookActionHeader        = "UserHub-Action"
 	WebhookAgentHeader         = "Webhook-Agent"
