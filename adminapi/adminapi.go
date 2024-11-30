@@ -32,8 +32,6 @@ func New(adminKey string, opts ...option.ClientOption) (Client, error) {
 	adminKey = strings.TrimSpace(adminKey)
 	if adminKey == "" {
 		return nil, internal.CallErrorf(nil, nil, "adminKey required")
-	} else if !strings.HasPrefix(adminKey, internal.AdminKeyPrefix) {
-		return nil, internal.CallErrorf(nil, nil, "adminKey must start with `%s`", internal.AdminKeyPrefix)
 	} else {
 		o.Headers.Set(internal.AuthHeader, "Bearer "+adminKey)
 	}

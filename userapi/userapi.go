@@ -32,8 +32,6 @@ func New(userKey, accessToken string, opts ...option.ClientOption) (Client, erro
 	userKey = strings.TrimSpace(userKey)
 	if userKey == "" {
 		return nil, internal.CallErrorf(nil, nil, "userKey required")
-	} else if !strings.HasPrefix(userKey, internal.UserKeyPrefix) {
-		return nil, internal.CallErrorf(nil, nil, "userKey must start with `%s`", internal.UserKeyPrefix)
 	} else {
 		o.Headers.Set(internal.ApiKeyHeader, userKey)
 	}
