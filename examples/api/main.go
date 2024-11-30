@@ -13,14 +13,14 @@ import (
 func run() error {
 	ctx := context.Background()
 
-	adminKey := os.Getenv("ADMIN_KEY")
+	adminKey := os.Getenv("USERHUB_ADMIN_KEY")
 	if adminKey == "" {
-		return fmt.Errorf("ADMIN_KEY required")
+		return fmt.Errorf("USERHUB_ADMIN_KEY required")
 	}
 
-	userKey := os.Getenv("USER_KEY")
+	userKey := os.Getenv("USERHUB_USER_KEY")
 	if userKey == "" {
-		return fmt.Errorf("USER_KEY required")
+		return fmt.Errorf("USERHUB_USER_KEY required")
 	}
 
 	adminApi, err := adminapi.New(adminKey)

@@ -16,9 +16,9 @@ func run() error {
 		port = "8000"
 	}
 
-	signingSecret := os.Getenv("SIGNING_SECRET")
+	signingSecret := os.Getenv("USERHUB_SIGNING_SECRET")
 	if signingSecret == "" {
-		return fmt.Errorf("SIGNING_SECRET required")
+		return fmt.Errorf("USERHUB_SIGNING_SECRET required")
 	}
 
 	wh := webhook.New(signingSecret).
