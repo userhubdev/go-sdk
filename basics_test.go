@@ -30,7 +30,7 @@ func getEnv(t *testing.T, name string) string {
 func TestAdminApi(t *testing.T) {
 	t.Parallel()
 
-	adminApi, err := adminapi.New(getEnv(t, "TEST_ADMIN_KEY"))
+	adminApi, err := adminapi.New(getEnv(t, "TEST_USERHUB_ADMIN_KEY"))
 	require.NoError(t, err)
 
 	res, err := adminApi.Users().List(context.Background(), nil)
@@ -41,7 +41,7 @@ func TestAdminApi(t *testing.T) {
 func TestUserApi(t *testing.T) {
 	t.Parallel()
 
-	userApi, err := userapi.New(getEnv(t, "TEST_USER_KEY"), "")
+	userApi, err := userapi.New(getEnv(t, "TEST_USERHUB_USER_KEY"), "")
 	require.NoError(t, err)
 
 	session, err := userApi.Session().Get(context.Background(), nil)
