@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/http"
 	"os"
@@ -18,7 +19,7 @@ func run() error {
 
 	signingSecret := os.Getenv("USERHUB_SIGNING_SECRET")
 	if signingSecret == "" {
-		return fmt.Errorf("USERHUB_SIGNING_SECRET required")
+		return errors.New("USERHUB_SIGNING_SECRET required")
 	}
 
 	wh := webhook.New(signingSecret).

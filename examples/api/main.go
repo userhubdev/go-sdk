@@ -15,12 +15,12 @@ func run() error {
 
 	adminKey := os.Getenv("USERHUB_ADMIN_KEY")
 	if adminKey == "" {
-		return fmt.Errorf("USERHUB_ADMIN_KEY required")
+		return errors.New("USERHUB_ADMIN_KEY required")
 	}
 
 	userKey := os.Getenv("USERHUB_USER_KEY")
 	if userKey == "" {
-		return fmt.Errorf("USERHUB_USER_KEY required")
+		return errors.New("USERHUB_USER_KEY required")
 	}
 
 	adminApi, err := adminapi.New(adminKey)
