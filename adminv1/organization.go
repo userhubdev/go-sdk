@@ -52,6 +52,8 @@ type Organization struct {
 	MemberCount int32 `json:"memberCount"`
 	// Whether the organization is disabled.
 	Disabled bool `json:"disabled"`
+	// The organization view.
+	View string `json:"view"`
 	// The creation time of the organization.
 	CreateTime time.Time `json:"createTime"`
 	// The last update time of the organization.

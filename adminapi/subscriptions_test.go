@@ -30,6 +30,7 @@ func TestSubscriptions_List(t *testing.T) {
       "default": true,
       "pullTime": "2024-02-05T23:07:46.483Z",
       "pushTime": "2024-02-05T23:07:46.483Z",
+      "view": "BASIC",
       "createTime": "2024-02-05T23:07:46.483Z",
       "updateTime": "2024-02-05T23:07:46.483Z"
     }
@@ -75,6 +76,7 @@ func TestSubscriptions_Get(t *testing.T) {
       "type": "AMAZON_COGNITO"
     },
     "providers": [],
+    "view": "BASIC",
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z",
     "amazonCognito": {
@@ -112,17 +114,34 @@ func TestSubscriptions_Get(t *testing.T) {
   "externalId": "string",
   "plan": {
     "id": "string",
+    "state": "AVAILABLE",
     "displayName": "Test",
     "description": "string",
+    "tier": "FREE",
     "currencyCode": "USD",
     "billingInterval": {
       "quantity": 1,
       "unit": "DAY"
     },
+    "revision": {
+      "id": "string",
+      "current": true,
+      "selected": true,
+      "latest": true,
+      "tag": "string"
+    },
+    "current": true,
+    "selected": true,
+    "default": true,
+    "trial": {
+      "days": 1
+    },
+    "changePath": "UPGRADE",
     "tags": [
       "string"
     ],
-    "items": []
+    "items": [],
+    "view": "BASIC"
   },
   "currencyCode": "USD",
   "items": [
@@ -133,10 +152,14 @@ func TestSubscriptions_Get(t *testing.T) {
   ],
   "seats": [
     {
+      "state": "AVAILABLE",
+      "stateReason": "UPDATING",
       "currentPeriodQuantity": 1,
       "nextPeriodQuantity": 1,
       "assignedQuantity": 1,
       "unassignedQuantity": 1,
+      "reservedQuantity": 1,
+      "availableQuantity": 1,
       "totalQuantity": 1
     }
   ],
@@ -220,6 +243,7 @@ func TestSubscriptions_Get(t *testing.T) {
     "signupTime": "2024-02-05T23:07:46.483Z",
     "memberCount": 1,
     "disabled": true,
+    "view": "BASIC",
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
   },
@@ -254,12 +278,14 @@ func TestSubscriptions_Get(t *testing.T) {
     "memberships": [],
     "signupTime": "2024-02-05T23:07:46.483Z",
     "disabled": true,
+    "view": "BASIC",
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
   },
   "default": true,
   "pullTime": "2024-02-05T23:07:46.483Z",
   "pushTime": "2024-02-05T23:07:46.483Z",
+  "view": "BASIC",
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
 }`

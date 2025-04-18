@@ -53,6 +53,8 @@ type User struct {
 	SignupTime time.Time `json:"signupTime"`
 	// Whether the user is disabled.
 	Disabled bool `json:"disabled"`
+	// The user view.
+	View string `json:"view"`
 	// The creation time of the user.
 	CreateTime time.Time `json:"createTime"`
 	// The last update time of the user.

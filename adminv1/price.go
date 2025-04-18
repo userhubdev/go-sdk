@@ -38,10 +38,14 @@ type Price struct {
 	PullTime time.Time `json:"pullTime"`
 	// The last time the price was pushed to the connection.
 	PushTime time.Time `json:"pushTime"`
+	// The price view.
+	View string `json:"view"`
 	// The creation time of the price.
 	CreateTime time.Time `json:"createTime"`
 	// The last update time of the price.
 	UpdateTime time.Time `json:"updateTime"`
+	// The price is dependent on the quantity.
+	Empty *PriceEmptyPrice `json:"empty"`
 	// The price is fixed per quantity.
 	Fixed *PriceFixedPrice `json:"fixed"`
 	// The price is dependent on the quantity.

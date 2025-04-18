@@ -37,6 +37,8 @@ type Product struct {
 	Archived bool `json:"archived"`
 	// The connected products.
 	ProductConnections []*ProductConnection `json:"productConnections"`
+	// The product view.
+	View string `json:"view"`
 	// The creation time of the product.
 	CreateTime time.Time `json:"createTime"`
 	// The last update time of the product.
