@@ -1,44 +1,57 @@
-run:
-  timeout: 5m
-
-linters-settings:
-  errcheck:
-    check-type-assertions: true
-
-  forbidigo:
-    forbid:
-      - ^print.*$
-      - 'fmt\.Print.*'
-
-  gci:
-    sections:
-      - standard
-      - default
-      - prefix(github.com/userhubdev/go-sdk)
-      - blank
-      - dot
-    custom-order: true
-
-  gofmt:
-    rewrite-rules:
-      - pattern: 'interface{}'
-        replacement: 'any'
-
-  govet:
-    enable-all: true
-    disable:
-      - fieldalignment
+version: "2"
 
 linters:
   enable:
-    - errcheck
     - forbidigo
-    - gci
-    - gofmt
-    - goimports
-    - govet
     - misspell
     - nilnil
     - perfsprint
     - unconvert
     - whitespace
+
+  settings:
+    errcheck:
+      check-type-assertions: true
+    forbidigo:
+      forbid:
+        - pattern: ^print.*$
+        - pattern: fmt\.Print.*
+    govet:
+      disable:
+        - fieldalignment
+      enable-all: true
+
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      - linters:
+          - forbidigo
+        path: examples\/.*
+      - linters:
+          - govet
+        text: 'shadow: declaration of "(err|ctx)" shadows declaration at'
+
+formatters:
+  enable:
+    - gci
+    - gofmt
+    - goimports
+
+  settings:
+    gci:
+      sections:
+        - standard
+        - default
+        - prefix(github.com/userhubdev/go-sdk)
+        - blank
+        - dot
+      custom-order: true
+    gofmt:
+      rewrite-rules:
+        - pattern: interface{}
+          replacement: any
