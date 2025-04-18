@@ -142,6 +142,8 @@ type FlowCreateJoinOrganizationInput struct {
 	Email string
 	// The display name of the person to invite.
 	DisplayName string
+	// The identifier of the role.
+	RoleId string
 }
 
 func (n *flowsImpl) CreateJoinOrganization(ctx context.Context, input *FlowCreateJoinOrganizationInput) (*userv1.Flow, error) {
@@ -165,6 +167,9 @@ func (n *flowsImpl) CreateJoinOrganization(ctx context.Context, input *FlowCreat
 		}
 		if !internal.IsEmpty(input.DisplayName) {
 			body["displayName"] = input.DisplayName
+		}
+		if !internal.IsEmpty(input.RoleId) {
+			body["roleId"] = input.RoleId
 		}
 	}
 

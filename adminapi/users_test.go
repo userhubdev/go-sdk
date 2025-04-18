@@ -34,6 +34,7 @@ func TestUsers_List(t *testing.T) {
       "timeZone": "America/New_York",
       "signupTime": "2024-02-05T23:07:46.483Z",
       "disabled": true,
+      "view": "BASIC",
       "createTime": "2024-02-05T23:07:46.483Z",
       "updateTime": "2024-02-05T23:07:46.483Z"
     }
@@ -119,6 +120,7 @@ func TestUsers_Create(t *testing.T) {
   ],
   "signupTime": "2024-02-05T23:07:46.483Z",
   "disabled": true,
+  "view": "BASIC",
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
 }`
@@ -200,6 +202,7 @@ func TestUsers_Get(t *testing.T) {
   ],
   "signupTime": "2024-02-05T23:07:46.483Z",
   "disabled": true,
+  "view": "BASIC",
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
 }`
@@ -281,6 +284,7 @@ func TestUsers_Update(t *testing.T) {
   ],
   "signupTime": "2024-02-05T23:07:46.483Z",
   "disabled": true,
+  "view": "BASIC",
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
 }`
@@ -362,6 +366,7 @@ func TestUsers_Delete(t *testing.T) {
   ],
   "signupTime": "2024-02-05T23:07:46.483Z",
   "disabled": true,
+  "view": "BASIC",
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
 }`
@@ -443,6 +448,7 @@ func TestUsers_Undelete(t *testing.T) {
   ],
   "signupTime": "2024-02-05T23:07:46.483Z",
   "disabled": true,
+  "view": "BASIC",
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
 }`
@@ -543,6 +549,7 @@ func TestUsers_Connect(t *testing.T) {
   ],
   "signupTime": "2024-02-05T23:07:46.483Z",
   "disabled": true,
+  "view": "BASIC",
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
 }`
@@ -624,6 +631,7 @@ func TestUsers_Disconnect(t *testing.T) {
   ],
   "signupTime": "2024-02-05T23:07:46.483Z",
   "disabled": true,
+  "view": "BASIC",
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
 }`
@@ -705,6 +713,7 @@ func TestUsers_ImportAccount(t *testing.T) {
   ],
   "signupTime": "2024-02-05T23:07:46.483Z",
   "disabled": true,
+  "view": "BASIC",
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
 }`

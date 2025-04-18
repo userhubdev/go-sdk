@@ -26,6 +26,7 @@ func TestFlows_List(t *testing.T) {
       "expireTime": "2024-02-05T23:07:46.483Z",
       "ttl": "string",
       "secret": "string",
+      "view": "BASIC",
       "createTime": "2024-02-05T23:07:46.483Z",
       "updateTime": "2024-02-05T23:07:46.483Z"
     }
@@ -87,6 +88,7 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
     "signupTime": "2024-02-05T23:07:46.483Z",
     "memberCount": 1,
     "disabled": true,
+    "view": "BASIC",
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
   },
@@ -121,6 +123,7 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
     "memberships": [],
     "signupTime": "2024-02-05T23:07:46.483Z",
     "disabled": true,
+    "view": "BASIC",
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
   },
@@ -155,6 +158,7 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
     "memberships": [],
     "signupTime": "2024-02-05T23:07:46.483Z",
     "disabled": true,
+    "view": "BASIC",
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
   },
@@ -162,6 +166,7 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
   "expireTime": "2024-02-05T23:07:46.483Z",
   "ttl": "string",
   "secret": "string",
+  "view": "BASIC",
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z",
   "joinOrganization": {
@@ -173,6 +178,7 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
       "displayName": "Test",
       "type": "OWNER",
       "description": "string",
+      "seatPolicy": "DEFAULT",
       "permissionSets": [],
       "default": true,
       "archived": true,
@@ -240,6 +246,7 @@ func TestFlows_CreateSignup(t *testing.T) {
     "signupTime": "2024-02-05T23:07:46.483Z",
     "memberCount": 1,
     "disabled": true,
+    "view": "BASIC",
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
   },
@@ -274,6 +281,7 @@ func TestFlows_CreateSignup(t *testing.T) {
     "memberships": [],
     "signupTime": "2024-02-05T23:07:46.483Z",
     "disabled": true,
+    "view": "BASIC",
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
   },
@@ -308,6 +316,7 @@ func TestFlows_CreateSignup(t *testing.T) {
     "memberships": [],
     "signupTime": "2024-02-05T23:07:46.483Z",
     "disabled": true,
+    "view": "BASIC",
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
   },
@@ -315,6 +324,7 @@ func TestFlows_CreateSignup(t *testing.T) {
   "expireTime": "2024-02-05T23:07:46.483Z",
   "ttl": "string",
   "secret": "string",
+  "view": "BASIC",
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z",
   "joinOrganization": {
@@ -326,6 +336,7 @@ func TestFlows_CreateSignup(t *testing.T) {
       "displayName": "Test",
       "type": "OWNER",
       "description": "string",
+      "seatPolicy": "DEFAULT",
       "permissionSets": [],
       "default": true,
       "archived": true,
@@ -393,6 +404,7 @@ func TestFlows_Get(t *testing.T) {
     "signupTime": "2024-02-05T23:07:46.483Z",
     "memberCount": 1,
     "disabled": true,
+    "view": "BASIC",
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
   },
@@ -427,6 +439,7 @@ func TestFlows_Get(t *testing.T) {
     "memberships": [],
     "signupTime": "2024-02-05T23:07:46.483Z",
     "disabled": true,
+    "view": "BASIC",
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
   },
@@ -461,6 +474,7 @@ func TestFlows_Get(t *testing.T) {
     "memberships": [],
     "signupTime": "2024-02-05T23:07:46.483Z",
     "disabled": true,
+    "view": "BASIC",
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
   },
@@ -468,6 +482,7 @@ func TestFlows_Get(t *testing.T) {
   "expireTime": "2024-02-05T23:07:46.483Z",
   "ttl": "string",
   "secret": "string",
+  "view": "BASIC",
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z",
   "joinOrganization": {
@@ -479,6 +494,7 @@ func TestFlows_Get(t *testing.T) {
       "displayName": "Test",
       "type": "OWNER",
       "description": "string",
+      "seatPolicy": "DEFAULT",
       "permissionSets": [],
       "default": true,
       "archived": true,
@@ -546,6 +562,7 @@ func TestFlows_Cancel(t *testing.T) {
     "signupTime": "2024-02-05T23:07:46.483Z",
     "memberCount": 1,
     "disabled": true,
+    "view": "BASIC",
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
   },
@@ -580,6 +597,7 @@ func TestFlows_Cancel(t *testing.T) {
     "memberships": [],
     "signupTime": "2024-02-05T23:07:46.483Z",
     "disabled": true,
+    "view": "BASIC",
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
   },
@@ -614,6 +632,7 @@ func TestFlows_Cancel(t *testing.T) {
     "memberships": [],
     "signupTime": "2024-02-05T23:07:46.483Z",
     "disabled": true,
+    "view": "BASIC",
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
   },
@@ -621,6 +640,7 @@ func TestFlows_Cancel(t *testing.T) {
   "expireTime": "2024-02-05T23:07:46.483Z",
   "ttl": "string",
   "secret": "string",
+  "view": "BASIC",
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z",
   "joinOrganization": {
@@ -632,6 +652,7 @@ func TestFlows_Cancel(t *testing.T) {
       "displayName": "Test",
       "type": "OWNER",
       "description": "string",
+      "seatPolicy": "DEFAULT",
       "permissionSets": [],
       "default": true,
       "archived": true,

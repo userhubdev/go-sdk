@@ -32,6 +32,8 @@ type Connection struct {
 	Delegate *ConnectionDelegate `json:"delegate"`
 	// The connection providers.
 	Providers []*ConnectionProvider `json:"providers"`
+	// The connection view.
+	View string `json:"view"`
 	// The creation time of the connection.
 	CreateTime time.Time `json:"createTime"`
 	// The last update time of the connection.

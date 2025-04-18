@@ -35,6 +35,7 @@ func TestOrganizations_List(t *testing.T) {
       "signupTime": "2024-02-05T23:07:46.483Z",
       "memberCount": 1,
       "disabled": true,
+      "view": "BASIC",
       "createTime": "2024-02-05T23:07:46.483Z",
       "updateTime": "2024-02-05T23:07:46.483Z"
     }
@@ -115,6 +116,7 @@ func TestOrganizations_Create(t *testing.T) {
   "signupTime": "2024-02-05T23:07:46.483Z",
   "memberCount": 1,
   "disabled": true,
+  "view": "BASIC",
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
 }`
@@ -191,6 +193,7 @@ func TestOrganizations_Get(t *testing.T) {
   "signupTime": "2024-02-05T23:07:46.483Z",
   "memberCount": 1,
   "disabled": true,
+  "view": "BASIC",
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
 }`
@@ -267,6 +270,7 @@ func TestOrganizations_Update(t *testing.T) {
   "signupTime": "2024-02-05T23:07:46.483Z",
   "memberCount": 1,
   "disabled": true,
+  "view": "BASIC",
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
 }`
@@ -343,6 +347,7 @@ func TestOrganizations_Delete(t *testing.T) {
   "signupTime": "2024-02-05T23:07:46.483Z",
   "memberCount": 1,
   "disabled": true,
+  "view": "BASIC",
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
 }`
@@ -419,6 +424,7 @@ func TestOrganizations_Undelete(t *testing.T) {
   "signupTime": "2024-02-05T23:07:46.483Z",
   "memberCount": 1,
   "disabled": true,
+  "view": "BASIC",
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
 }`
@@ -514,6 +520,7 @@ func TestOrganizations_Connect(t *testing.T) {
   "signupTime": "2024-02-05T23:07:46.483Z",
   "memberCount": 1,
   "disabled": true,
+  "view": "BASIC",
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
 }`
@@ -590,6 +597,7 @@ func TestOrganizations_Disconnect(t *testing.T) {
   "signupTime": "2024-02-05T23:07:46.483Z",
   "memberCount": 1,
   "disabled": true,
+  "view": "BASIC",
   "createTime": "2024-02-05T23:07:46.483Z",
   "updateTime": "2024-02-05T23:07:46.483Z"
 }`
@@ -673,6 +681,7 @@ func TestOrganizations_AddMember(t *testing.T) {
     "memberships": [],
     "signupTime": "2024-02-05T23:07:46.483Z",
     "disabled": true,
+    "view": "BASIC",
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
   },
@@ -682,6 +691,7 @@ func TestOrganizations_AddMember(t *testing.T) {
     "displayName": "Test",
     "type": "OWNER",
     "description": "string",
+    "seatPolicy": "DEFAULT",
     "permissionSets": [
       "string"
     ],
@@ -751,6 +761,7 @@ func TestOrganizations_GetMember(t *testing.T) {
     "memberships": [],
     "signupTime": "2024-02-05T23:07:46.483Z",
     "disabled": true,
+    "view": "BASIC",
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
   },
@@ -760,6 +771,7 @@ func TestOrganizations_GetMember(t *testing.T) {
     "displayName": "Test",
     "type": "OWNER",
     "description": "string",
+    "seatPolicy": "DEFAULT",
     "permissionSets": [
       "string"
     ],
@@ -829,6 +841,7 @@ func TestOrganizations_UpdateMember(t *testing.T) {
     "memberships": [],
     "signupTime": "2024-02-05T23:07:46.483Z",
     "disabled": true,
+    "view": "BASIC",
     "createTime": "2024-02-05T23:07:46.483Z",
     "updateTime": "2024-02-05T23:07:46.483Z"
   },
@@ -838,6 +851,7 @@ func TestOrganizations_UpdateMember(t *testing.T) {
     "displayName": "Test",
     "type": "OWNER",
     "description": "string",
+    "seatPolicy": "DEFAULT",
     "permissionSets": [
       "string"
     ],

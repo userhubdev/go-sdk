@@ -140,6 +140,8 @@ type FlowCreateJoinOrganizationInput struct {
 	Email string
 	// The display name of the person to invite.
 	DisplayName string
+	// The identifier of the role.
+	RoleId string
 	// The identifier of the user sending the invite.
 	CreatorUserId string
 	// The time the flow will expire.
@@ -176,6 +178,9 @@ func (n *flowsImpl) CreateJoinOrganization(ctx context.Context, input *FlowCreat
 		}
 		if !internal.IsEmpty(input.DisplayName) {
 			body["displayName"] = input.DisplayName
+		}
+		if !internal.IsEmpty(input.RoleId) {
+			body["roleId"] = input.RoleId
 		}
 		if !internal.IsEmpty(input.CreatorUserId) {
 			body["creatorUserId"] = input.CreatorUserId

@@ -57,6 +57,8 @@ type Subscription struct {
 	PullTime time.Time `json:"pullTime"`
 	// The last time the subscription was pushed to the connection.
 	PushTime time.Time `json:"pushTime"`
+	// The subscription view.
+	View string `json:"view"`
 	// The creation time of the subscription.
 	CreateTime time.Time `json:"createTime"`
 	// The last update time of the subscription.

@@ -26,6 +26,8 @@ type Role struct {
 	//
 	// The maximum length is 1000 characters.
 	Description string `json:"description"`
+	// The policy that defines how a member is assigned a seat.
+	SeatPolicy string `json:"seatPolicy"`
 	// The additional permissions allowed by the role.
 	PermissionSets []string `json:"permissionSets"`
 	// Whether the role is the default for the tenant.

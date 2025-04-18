@@ -89,6 +89,7 @@ func TestFlows_CreateJoinOrganization(t *testing.T) {
       "displayName": "Test",
       "type": "OWNER",
       "description": "string",
+      "seatPolicy": "DEFAULT",
       "permissionSets": [],
       "default": true
     }
@@ -161,6 +162,7 @@ func TestFlows_CreateSignup(t *testing.T) {
       "displayName": "Test",
       "type": "OWNER",
       "description": "string",
+      "seatPolicy": "DEFAULT",
       "permissionSets": [],
       "default": true
     }
@@ -233,6 +235,7 @@ func TestFlows_Get(t *testing.T) {
       "displayName": "Test",
       "type": "OWNER",
       "description": "string",
+      "seatPolicy": "DEFAULT",
       "permissionSets": [],
       "default": true
     }
@@ -305,6 +308,7 @@ func TestFlows_Approve(t *testing.T) {
       "displayName": "Test",
       "type": "OWNER",
       "description": "string",
+      "seatPolicy": "DEFAULT",
       "permissionSets": [],
       "default": true
     }
@@ -377,6 +381,7 @@ func TestFlows_Consume(t *testing.T) {
       "displayName": "Test",
       "type": "OWNER",
       "description": "string",
+      "seatPolicy": "DEFAULT",
       "permissionSets": [],
       "default": true
     }
@@ -449,6 +454,7 @@ func TestFlows_Cancel(t *testing.T) {
       "displayName": "Test",
       "type": "OWNER",
       "description": "string",
+      "seatPolicy": "DEFAULT",
       "permissionSets": [],
       "default": true
     }

@@ -34,6 +34,8 @@ type Flow struct {
 	//
 	// This is only populated on create.
 	Secret string `json:"secret"`
+	// The flow view.
+	View string `json:"view"`
 	// The creation time of the flow.
 	CreateTime time.Time `json:"createTime"`
 	// The last update time of the flow.
