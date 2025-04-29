@@ -19,3 +19,15 @@ func (w withBaseUrl) Apply(options *options.ClientOptions) {
 		options.BaseUrl = w.baseUrl
 	}
 }
+
+func WithApiVersion(apiVersion string) ClientOption {
+	return withApiVersion{apiVersion: apiVersion}
+}
+
+type withApiVersion struct{ apiVersion string }
+
+func (w withApiVersion) Apply(options *options.ClientOptions) {
+	if w.apiVersion != "" {
+		options.ApiVersion = w.apiVersion
+	}
+}

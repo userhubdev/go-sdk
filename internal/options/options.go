@@ -11,13 +11,20 @@ import (
 )
 
 type ClientOptions struct {
-	BaseUrl string
-	Headers http.Header
+	ApiVersion string
+	BaseUrl    string
+	Headers    http.Header
 }
 
 func (o *ClientOptions) Validate() error {
 	if o == nil {
 		return errors.New("userhub: client options required")
+	}
+
+	if o.ApiVersion == "" {
+		return errors.New("userhub: API version required")
+	} else if len(o.ApiVersion) != 10 {
+		return errors.New("userhub: API version is invalid (e.g. 2022-11-15)")
 	}
 
 	if o.BaseUrl == "" {

@@ -15,6 +15,7 @@ import (
 	"github.com/userhubdev/go-sdk/adminapi"
 	"github.com/userhubdev/go-sdk/adminv1"
 	"github.com/userhubdev/go-sdk/code"
+	"github.com/userhubdev/go-sdk/internal"
 	"github.com/userhubdev/go-sdk/option"
 	"github.com/userhubdev/go-sdk/userapi"
 )
@@ -86,7 +87,9 @@ func TestApiGet(t *testing.T) {
 	t.Parallel()
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		require.Equal(t, internal.ApiVersion, r.Header.Get("userhub-api-version"))
 		require.Equal(t, "Bearer sk_test", r.Header.Get("authorization"))
+		require.Equal(t, internal.UserAgent, r.Header.Get("user-agent"))
 		require.Equal(t, "/admin/v1/users/usr_1", r.URL.Path)
 		require.Equal(t, "GET", r.Method)
 		_, _ = w.Write([]byte(`{"id": "usr_1", "displayName": "Jane Doe"}`))
@@ -107,7 +110,9 @@ func TestApiPost(t *testing.T) {
 	t.Parallel()
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		require.Equal(t, internal.ApiVersion, r.Header.Get("userhub-api-version"))
 		require.Equal(t, "Bearer sk_test", r.Header.Get("authorization"))
+		require.Equal(t, internal.UserAgent, r.Header.Get("user-agent"))
 		require.Equal(t, "/admin/v1/users", r.URL.Path)
 		require.Equal(t, "POST", r.Method)
 
@@ -139,7 +144,9 @@ func TestApiPost_Empty(t *testing.T) {
 	t.Parallel()
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		require.Equal(t, internal.ApiVersion, r.Header.Get("userhub-api-version"))
 		require.Equal(t, "Bearer sk_test", r.Header.Get("authorization"))
+		require.Equal(t, internal.UserAgent, r.Header.Get("user-agent"))
 		require.Equal(t, "/admin/v1/users", r.URL.Path)
 		require.Equal(t, "POST", r.Method)
 
@@ -169,7 +176,9 @@ func TestApiPatch(t *testing.T) {
 	t.Parallel()
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		require.Equal(t, internal.ApiVersion, r.Header.Get("userhub-api-version"))
 		require.Equal(t, "Bearer sk_test", r.Header.Get("authorization"))
+		require.Equal(t, internal.UserAgent, r.Header.Get("user-agent"))
 		require.Equal(t, "/admin/v1/users/usr_1", r.URL.Path)
 		require.Equal(t, "PATCH", r.Method)
 
@@ -201,7 +210,9 @@ func TestApiPatch_Empty(t *testing.T) {
 	t.Parallel()
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		require.Equal(t, internal.ApiVersion, r.Header.Get("userhub-api-version"))
 		require.Equal(t, "Bearer sk_test", r.Header.Get("authorization"))
+		require.Equal(t, internal.UserAgent, r.Header.Get("user-agent"))
 		require.Equal(t, "/admin/v1/users/usr_1", r.URL.Path)
 		require.Equal(t, "PATCH", r.Method)
 
@@ -233,7 +244,9 @@ func TestApiDelete(t *testing.T) {
 	t.Parallel()
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		require.Equal(t, internal.ApiVersion, r.Header.Get("userhub-api-version"))
 		require.Equal(t, "Bearer sk_test", r.Header.Get("authorization"))
+		require.Equal(t, internal.UserAgent, r.Header.Get("user-agent"))
 		require.Equal(t, "/admin/v1/users/usr_1", r.URL.Path)
 		require.Equal(t, "DELETE", r.Method)
 		_, _ = w.Write([]byte(`{"id": "usr_1"}`))
