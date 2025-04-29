@@ -24,12 +24,6 @@ type Flows interface {
 	CreateSignup(ctx context.Context, input *FlowCreateSignupInput) (*userv1.Flow, error)
 	// Retrieves specified flow.
 	Get(ctx context.Context, flowId string, input *FlowGetInput) (*userv1.Flow, error)
-	// Approve a flow.
-	//
-	// This will approve the specified flow and start the next step
-	// in the flow (e.g. for a join organization flow it will send the
-	// invitee an email with a link to join the organization).
-	Approve(ctx context.Context, flowId string, input *FlowApproveInput) (*userv1.Flow, error)
 	// Consume the flow.
 	//
 	// This accepts the flow (e.g. for a join organization flow it will
@@ -251,39 +245,6 @@ func (n *flowsImpl) Get(ctx context.Context, flowId string, input *FlowGetInput)
 		),
 	)
 	req.SetIdempotent(true)
-
-	res, err := n.transport.Execute(ctx, req)
-	if err != nil {
-		return nil, err
-	}
-
-	model := &userv1.Flow{}
-
-	err = res.DecodeBody(&model)
-	if err != nil {
-		return nil, err
-	}
-
-	return model, nil
-}
-
-// FlowApproveInput is the input param for the Approve method.
-type FlowApproveInput struct {
-}
-
-func (n *flowsImpl) Approve(ctx context.Context, flowId string, input *FlowApproveInput) (*userv1.Flow, error) {
-	req := internal.NewRequest(
-		"user.flows.approve",
-		"POST",
-		fmt.Sprintf("/user/v1/flows/%s:approve",
-			url.PathEscape(flowId),
-		),
-	)
-	req.SetIdempotent(true)
-
-	body := map[string]any{}
-
-	req.SetBody(body)
 
 	res, err := n.transport.Execute(ctx, req)
 	if err != nil {
