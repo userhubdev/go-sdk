@@ -17,8 +17,9 @@ type Error = types.UserHubError
 // New returns a new User API client.
 func New(userKey, accessToken string, opts ...option.ClientOption) (Client, error) {
 	o := &options.ClientOptions{
-		BaseUrl: internal.ApiBaseUrl,
-		Headers: http.Header{},
+		ApiVersion: internal.ApiVersion,
+		BaseUrl:    internal.ApiBaseUrl,
+		Headers:    http.Header{},
 	}
 	for _, opt := range opts {
 		if opt != nil {
@@ -28,6 +29,8 @@ func New(userKey, accessToken string, opts ...option.ClientOption) (Client, erro
 	if err := o.Validate(); err != nil {
 		return nil, err
 	}
+
+	o.Headers.Set(internal.ApiVersionHeader, o.ApiVersion)
 
 	userKey = strings.TrimSpace(userKey)
 	if userKey == "" {
