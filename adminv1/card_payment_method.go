@@ -6,6 +6,10 @@ package adminv1
 type CardPaymentMethod struct {
 	// The brand of the card (e.g. `VISA`).
 	Brand string `json:"brand"`
+	// The expiration date of the card.
+	//
+	// Deprecated: Use `ExpYear` and `ExpMonth` instead.
+	Expiration *CardPaymentMethodExpiration `json:"expiration"`
 	// The last for digits of the card.
 	Last4 string `json:"last4"`
 	// The funding method for the card (e.g. `DEBIT`).
