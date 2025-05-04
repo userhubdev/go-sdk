@@ -8,28 +8,31 @@ import (
 	"net/url"
 
 	"github.com/userhubdev/go-sdk/internal"
+	"github.com/userhubdev/go-sdk/types"
 	"github.com/userhubdev/go-sdk/userv1"
 )
 
 type Flows interface {
-	// Lists flows.
+	// List flows.
 	List(ctx context.Context, input *FlowListInput) (*userv1.ListFlowsResponse, error)
-	// Creates a join organization flow.
+	// Create a new join organization flow.
 	//
 	// This invites a person to join an organization.
 	CreateJoinOrganization(ctx context.Context, input *FlowCreateJoinOrganizationInput) (*userv1.Flow, error)
-	// Creates a signup flow.
+	// Update a join organization flow.
+	UpdateJoinOrganization(ctx context.Context, flowId string, input *FlowUpdateJoinOrganizationInput) (*userv1.Flow, error)
+	// Create a new signup flow.
 	//
 	// This invites a person to join the app.
 	CreateSignup(ctx context.Context, input *FlowCreateSignupInput) (*userv1.Flow, error)
-	// Retrieves specified flow.
+	// Get a flow.
 	Get(ctx context.Context, flowId string, input *FlowGetInput) (*userv1.Flow, error)
-	// Consume the flow.
+	// Consume a flow.
 	//
 	// This accepts the flow (e.g. for a join organization flow it will
 	// accept the invitation and add the member to the organization).
 	Consume(ctx context.Context, flowId string, input *FlowConsumeInput) (*userv1.Flow, error)
-	// Cancels specified flow.
+	// Cancel a flow.
 	//
 	// This cancels the flow and hides it from the user.
 	Cancel(ctx context.Context, flowId string, input *FlowCancelInput) (*userv1.Flow, error)
@@ -68,9 +71,6 @@ type FlowListInput struct {
 	// the call that provided the page token.
 	PageToken string
 	// A comma-separated list of fields to order by.
-	//
-	// Supports:
-	// - `createTime desc`
 	OrderBy string
 }
 
@@ -164,6 +164,47 @@ func (n *flowsImpl) CreateJoinOrganization(ctx context.Context, input *FlowCreat
 		}
 		if !internal.IsEmpty(input.RoleId) {
 			body["roleId"] = input.RoleId
+		}
+	}
+
+	req.SetBody(body)
+
+	res, err := n.transport.Execute(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	model := &userv1.Flow{}
+
+	err = res.DecodeBody(&model)
+	if err != nil {
+		return nil, err
+	}
+
+	return model, nil
+}
+
+// FlowUpdateJoinOrganizationInput is the input param for the UpdateJoinOrganization method.
+type FlowUpdateJoinOrganizationInput struct {
+	// The identifier of the role.
+	RoleId types.Optional[string]
+}
+
+func (n *flowsImpl) UpdateJoinOrganization(ctx context.Context, flowId string, input *FlowUpdateJoinOrganizationInput) (*userv1.Flow, error) {
+	req := internal.NewRequest(
+		"user.flows.updateJoinOrganization",
+		"PATCH",
+		fmt.Sprintf("/user/v1/flows/%s:updateJoinOrganization",
+			url.PathEscape(flowId),
+		),
+	)
+	req.SetIdempotent(true)
+
+	body := map[string]any{}
+
+	if input != nil {
+		if input.RoleId.Present {
+			body["roleId"] = input.RoleId.Value
 		}
 	}
 

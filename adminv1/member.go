@@ -20,6 +20,8 @@ type Member struct {
 	// subscription for the organization or the user
 	// has not been assigned a seat.
 	Seat *AccountSubscriptionSeat `json:"seat"`
+	// The member view.
+	View string `json:"view"`
 	// The creation time of the membership.
 	CreateTime time.Time `json:"createTime"`
 	// The last update time of the membership.

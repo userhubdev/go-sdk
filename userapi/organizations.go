@@ -14,17 +14,33 @@ import (
 )
 
 type Organizations interface {
-	// Lists organizations.
+	// List organizations.
 	List(ctx context.Context, input *OrganizationListInput) (*userv1.ListOrganizationsResponse, error)
-	// Creates a new organization.
+	// Create a new organization.
 	Create(ctx context.Context, input *OrganizationCreateInput) (*userv1.Organization, error)
-	// Retrieves specified organization.
+	// Get an organization.
 	Get(ctx context.Context, organizationId string, input *OrganizationGetInput) (*userv1.Organization, error)
-	// Updates specified organization.
+	// Update an organization.
 	Update(ctx context.Context, organizationId string, input *OrganizationUpdateInput) (*userv1.Organization, error)
-	// Delete specified organization.
+	// List organization members.
+	ListMembers(ctx context.Context, organizationId string, input *OrganizationListMembersInput) (*userv1.ListMembersResponse, error)
+	// Get an organization member.
+	GetMember(ctx context.Context, organizationId string, userId string, input *OrganizationGetMemberInput) (*userv1.Member, error)
+	// Update an organization member.
+	UpdateMember(ctx context.Context, organizationId string, userId string, input *OrganizationUpdateMemberInput) (*userv1.Member, error)
+	// Assign a seat to an organization member.
+	//
+	// This will automatically purchase additional seats if none
+	// are available and the plan has just-in-time seat provisioning
+	// enabled.
+	AssignMemberSeat(ctx context.Context, organizationId string, userId string, input *OrganizationAssignMemberSeatInput) (*userv1.Member, error)
+	// Unassign a seat from an organization member.
+	UnassignMemberSeat(ctx context.Context, organizationId string, userId string, input *OrganizationUnassignMemberSeatInput) (*userv1.Member, error)
+	// Remove a member from an organization.
+	RemoveMember(ctx context.Context, organizationId string, userId string, input *OrganizationRemoveMemberInput) (*apiv1.EmptyResponse, error)
+	// Delete an organization.
 	Delete(ctx context.Context, organizationId string, input *OrganizationDeleteInput) (*apiv1.EmptyResponse, error)
-	// Leave organization.
+	// Leave an organization.
 	//
 	// This allows a user to remove themselves from an organization
 	// without have permission to manage the organization.
@@ -50,10 +66,6 @@ type OrganizationListInput struct {
 	// the call that provided the page token.
 	PageToken string
 	// A comma-separated list of fields to order by.
-	//
-	// Supports:
-	// - `displayName asc`
-	// - `email asc`
 	OrderBy string
 }
 
@@ -245,6 +257,228 @@ func (n *organizationsImpl) Update(ctx context.Context, organizationId string, i
 	}
 
 	model := &userv1.Organization{}
+
+	err = res.DecodeBody(&model)
+	if err != nil {
+		return nil, err
+	}
+
+	return model, nil
+}
+
+// OrganizationListMembersInput is the input param for the ListMembers method.
+type OrganizationListMembersInput struct {
+	// The maximum number of members to return. The API may return fewer than
+	// this value.
+	//
+	// If unspecified, at most 20 members will be returned.
+	// The maximum value is 100; values above 100 will be coerced to 100.
+	PageSize int32
+	// A page token, received from a previous list members call.
+	// Provide this to retrieve the subsequent page.
+	//
+	// When paginating, all other parameters provided to list members must match
+	// the call that provided the page token.
+	PageToken string
+	// A comma-separated list of fields to order by.
+	OrderBy string
+}
+
+func (n *organizationsImpl) ListMembers(ctx context.Context, organizationId string, input *OrganizationListMembersInput) (*userv1.ListMembersResponse, error) {
+	req := internal.NewRequest(
+		"user.organizations.listMembers",
+		"GET",
+		fmt.Sprintf("/user/v1/organizations/%s/members",
+			url.PathEscape(organizationId),
+		),
+	)
+	req.SetIdempotent(true)
+
+	if input != nil {
+		if !internal.IsEmpty(input.PageSize) {
+			req.SetQuery("pageSize", input.PageSize)
+		}
+		if !internal.IsEmpty(input.PageToken) {
+			req.SetQuery("pageToken", input.PageToken)
+		}
+		if !internal.IsEmpty(input.OrderBy) {
+			req.SetQuery("orderBy", input.OrderBy)
+		}
+	}
+
+	res, err := n.transport.Execute(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	model := &userv1.ListMembersResponse{}
+
+	err = res.DecodeBody(&model)
+	if err != nil {
+		return nil, err
+	}
+
+	return model, nil
+}
+
+// OrganizationGetMemberInput is the input param for the GetMember method.
+type OrganizationGetMemberInput struct {
+}
+
+func (n *organizationsImpl) GetMember(ctx context.Context, organizationId string, userId string, input *OrganizationGetMemberInput) (*userv1.Member, error) {
+	req := internal.NewRequest(
+		"user.organizations.getMember",
+		"GET",
+		fmt.Sprintf("/user/v1/organizations/%s/members/%s",
+			url.PathEscape(organizationId),
+			url.PathEscape(userId),
+		),
+	)
+	req.SetIdempotent(true)
+
+	res, err := n.transport.Execute(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	model := &userv1.Member{}
+
+	err = res.DecodeBody(&model)
+	if err != nil {
+		return nil, err
+	}
+
+	return model, nil
+}
+
+// OrganizationUpdateMemberInput is the input param for the UpdateMember method.
+type OrganizationUpdateMemberInput struct {
+	// The identifier of the role.
+	RoleId types.Optional[string]
+}
+
+func (n *organizationsImpl) UpdateMember(ctx context.Context, organizationId string, userId string, input *OrganizationUpdateMemberInput) (*userv1.Member, error) {
+	req := internal.NewRequest(
+		"user.organizations.updateMember",
+		"PATCH",
+		fmt.Sprintf("/user/v1/organizations/%s/members/%s",
+			url.PathEscape(organizationId),
+			url.PathEscape(userId),
+		),
+	)
+	req.SetIdempotent(true)
+
+	body := map[string]any{}
+
+	if input != nil {
+		if input.RoleId.Present {
+			body["roleId"] = input.RoleId.Value
+		}
+	}
+
+	req.SetBody(body)
+
+	res, err := n.transport.Execute(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	model := &userv1.Member{}
+
+	err = res.DecodeBody(&model)
+	if err != nil {
+		return nil, err
+	}
+
+	return model, nil
+}
+
+// OrganizationAssignMemberSeatInput is the input param for the AssignMemberSeat method.
+type OrganizationAssignMemberSeatInput struct {
+}
+
+func (n *organizationsImpl) AssignMemberSeat(ctx context.Context, organizationId string, userId string, input *OrganizationAssignMemberSeatInput) (*userv1.Member, error) {
+	req := internal.NewRequest(
+		"user.organizations.assignMemberSeat",
+		"POST",
+		fmt.Sprintf("/user/v1/organizations/%s/members/%s:assignSeat",
+			url.PathEscape(organizationId),
+			url.PathEscape(userId),
+		),
+	)
+
+	body := map[string]any{}
+
+	req.SetBody(body)
+
+	res, err := n.transport.Execute(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	model := &userv1.Member{}
+
+	err = res.DecodeBody(&model)
+	if err != nil {
+		return nil, err
+	}
+
+	return model, nil
+}
+
+// OrganizationUnassignMemberSeatInput is the input param for the UnassignMemberSeat method.
+type OrganizationUnassignMemberSeatInput struct {
+}
+
+func (n *organizationsImpl) UnassignMemberSeat(ctx context.Context, organizationId string, userId string, input *OrganizationUnassignMemberSeatInput) (*userv1.Member, error) {
+	req := internal.NewRequest(
+		"user.organizations.unassignMemberSeat",
+		"POST",
+		fmt.Sprintf("/user/v1/organizations/%s/members/%s:unassignSeat",
+			url.PathEscape(organizationId),
+			url.PathEscape(userId),
+		),
+	)
+
+	body := map[string]any{}
+
+	req.SetBody(body)
+
+	res, err := n.transport.Execute(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	model := &userv1.Member{}
+
+	err = res.DecodeBody(&model)
+	if err != nil {
+		return nil, err
+	}
+
+	return model, nil
+}
+
+// OrganizationRemoveMemberInput is the input param for the RemoveMember method.
+type OrganizationRemoveMemberInput struct {
+}
+
+func (n *organizationsImpl) RemoveMember(ctx context.Context, organizationId string, userId string, input *OrganizationRemoveMemberInput) (*apiv1.EmptyResponse, error) {
+	req := internal.NewRequest(
+		"user.organizations.removeMember",
+		"DELETE",
+		fmt.Sprintf("/user/v1/organizations/%s/members/%s",
+			url.PathEscape(organizationId),
+			url.PathEscape(userId),
+		),
+	)
+
+	res, err := n.transport.Execute(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	model := &apiv1.EmptyResponse{}
 
 	err = res.DecodeBody(&model)
 	if err != nil {

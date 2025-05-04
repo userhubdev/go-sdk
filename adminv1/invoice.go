@@ -69,8 +69,8 @@ type Invoice struct {
 	Items []*InvoiceItem `json:"items"`
 	// The prorated changes that occurred mid-billing cycle.
 	Changes []*InvoiceChange `json:"changes"`
-	// The last time the invoice was pulled from the connection.
-	PullTime time.Time `json:"pullTime"`
+	// The invoice view.
+	View string `json:"view"`
 	// The creation time of the invoice.
 	CreateTime time.Time `json:"createTime"`
 	// The last update time of the invoice.

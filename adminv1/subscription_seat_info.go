@@ -14,11 +14,11 @@ type SubscriptionSeatInfo struct {
 	//
 	// This might be less than the total quantity while a subscription change
 	// is pending or if the subscription is over-provisioned.
-	CurrentPeriodQuantity int32 `json:"currentPeriodQuantity"`
-	// The number of seats scheduled to appear on the next invoice.
+	CurrentQuantity int32 `json:"currentQuantity"`
+	// The number of seats expected at renewal.
 	//
-	// This will only be set when different from current period quantity.
-	NextPeriodQuantity int32 `json:"nextPeriodQuantity"`
+	// This will only be set when different from current quantity.
+	RenewQuantity int32 `json:"renewQuantity"`
 	// The number of seats currently assigned.
 	AssignedQuantity int32 `json:"assignedQuantity"`
 	// The number of seats not assigned.
@@ -29,6 +29,6 @@ type SubscriptionSeatInfo struct {
 	ReservedQuantity int32 `json:"reservedQuantity"`
 	// The number of seats which can be assigned or reserved.
 	AvailableQuantity int32 `json:"availableQuantity"`
-	// The total number of seats for the current period.
+	// The total number of seats associated with the subscription.
 	TotalQuantity int32 `json:"totalQuantity"`
 }

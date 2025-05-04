@@ -37,12 +37,12 @@ type PaymentMethod struct {
 	// This will be unset if the payment method is updated
 	// or if a payment succeeds.
 	LastPaymentError *apiv1.Status `json:"lastPaymentError"`
-	// The last time the payment method was pulled from the connection.
-	PullTime time.Time `json:"pullTime"`
+	// Card payment method (e.g. Visa credit card).
+	Card *CardPaymentMethod `json:"card"`
+	// The payment method view.
+	View string `json:"view"`
 	// The creation time of the payment method connection.
 	CreateTime time.Time `json:"createTime"`
 	// The last update time of the payment method connection.
 	UpdateTime time.Time `json:"updateTime"`
-	// Card payment method (e.g. Visa credit card).
-	Card *CardPaymentMethod `json:"card"`
 }

@@ -34,6 +34,8 @@ type Role struct {
 	Default bool `json:"default"`
 	// The archived status of the role.
 	Archived bool `json:"archived"`
+	// The role view.
+	View string `json:"view"`
 	// The creation time of the role.
 	CreateTime time.Time `json:"createTime"`
 	// The last update time of the role.

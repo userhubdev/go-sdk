@@ -12,9 +12,9 @@ import (
 )
 
 type Subscriptions interface {
-	// Lists subscriptions.
+	// List subscriptions.
 	List(ctx context.Context, input *SubscriptionListInput) (*adminv1.ListSubscriptionsResponse, error)
-	// Retrieves specified subscription.
+	// Get a subscription.
 	Get(ctx context.Context, subscriptionId string, input *SubscriptionGetInput) (*adminv1.Subscription, error)
 }
 
@@ -49,11 +49,6 @@ type SubscriptionListInput struct {
 	// A comma-separated list of fields to order by.
 	//
 	// This is only supported when either `organizationId` or `userId` is specified.
-	//
-	// Supports:
-	// - `active desc`
-	// - `createTime desc`
-	// - `startTime desc`
 	OrderBy string
 	// The Subscription view to return in the results.
 	//

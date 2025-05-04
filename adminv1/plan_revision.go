@@ -20,6 +20,6 @@ type PlanRevision struct {
 	Latest bool `json:"latest"`
 	// The tag for the revision.
 	//
-	// This will only be set in checkout for plans set using a tag.
+	// This is only set in checkout for plans selected using a tag.
 	Tag string `json:"tag"`
 }

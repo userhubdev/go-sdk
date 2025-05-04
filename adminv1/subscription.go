@@ -30,6 +30,11 @@ type Subscription struct {
 	PaymentMethod *PaymentMethod `json:"paymentMethod"`
 	// Whether the subscription is scheduled to be canceled
 	// at the end of the current billing period.
+	RenewCanceled bool `json:"renewCanceled"`
+	// Whether the subscription is scheduled to be canceled
+	// at the end of the current billing period.
+	//
+	// Deprecated: Use `RenewCanceled` instead.
 	CancelPeriodEnd bool `json:"cancelPeriodEnd"`
 	// The anchor time for the billing cycle.
 	AnchorTime time.Time `json:"anchorTime"`
@@ -42,21 +47,11 @@ type Subscription struct {
 	// The current billing period for the subscription.
 	CurrentPeriod *SubscriptionCurrentPeriod `json:"currentPeriod"`
 	// The organization owner of the subscription.
-	//
-	// The ID field of this object must be populated if
-	// if user isn't specified.
 	Organization *Organization `json:"organization"`
 	// The user owner of the subscription.
-	//
-	// The ID field of this object must be populated if
-	// if organization isn't specified.
 	User *User `json:"user"`
 	// Whether the subscription is the default for the account.
 	Default bool `json:"default"`
-	// The last time the subscription was pulled from the connection.
-	PullTime time.Time `json:"pullTime"`
-	// The last time the subscription was pushed to the connection.
-	PushTime time.Time `json:"pushTime"`
 	// The subscription view.
 	View string `json:"view"`
 	// The creation time of the subscription.
