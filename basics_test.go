@@ -88,7 +88,7 @@ func TestApiGet(t *testing.T) {
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		require.Equal(t, internal.ApiVersion, r.Header.Get("userhub-api-version"))
-		require.Equal(t, "Bearer sk_test", r.Header.Get("authorization"))
+		require.Equal(t, "Bearer userhub_admin_test", r.Header.Get("authorization"))
 		require.Equal(t, internal.UserAgent, r.Header.Get("user-agent"))
 		require.Equal(t, "/admin/v1/users/usr_1", r.URL.Path)
 		require.Equal(t, "GET", r.Method)
@@ -96,7 +96,7 @@ func TestApiGet(t *testing.T) {
 	}))
 	defer ts.Close()
 
-	adminApi, err := adminapi.New("sk_test", option.WithBaseUrl(ts.URL))
+	adminApi, err := adminapi.New("userhub_admin_test", option.WithBaseUrl(ts.URL))
 	require.NoError(t, err)
 
 	user, err := adminApi.Users().Get(context.Background(), "usr_1", nil)
@@ -111,7 +111,7 @@ func TestApiPost(t *testing.T) {
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		require.Equal(t, internal.ApiVersion, r.Header.Get("userhub-api-version"))
-		require.Equal(t, "Bearer sk_test", r.Header.Get("authorization"))
+		require.Equal(t, "Bearer userhub_admin_test", r.Header.Get("authorization"))
 		require.Equal(t, internal.UserAgent, r.Header.Get("user-agent"))
 		require.Equal(t, "/admin/v1/users", r.URL.Path)
 		require.Equal(t, "POST", r.Method)
@@ -128,7 +128,7 @@ func TestApiPost(t *testing.T) {
 	}))
 	defer ts.Close()
 
-	adminApi, err := adminapi.New("sk_test", option.WithBaseUrl(ts.URL))
+	adminApi, err := adminapi.New("userhub_admin_test", option.WithBaseUrl(ts.URL))
 	require.NoError(t, err)
 
 	user, err := adminApi.Users().Create(context.Background(), &adminapi.UserCreateInput{
@@ -145,7 +145,7 @@ func TestApiPost_Empty(t *testing.T) {
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		require.Equal(t, internal.ApiVersion, r.Header.Get("userhub-api-version"))
-		require.Equal(t, "Bearer sk_test", r.Header.Get("authorization"))
+		require.Equal(t, "Bearer userhub_admin_test", r.Header.Get("authorization"))
 		require.Equal(t, internal.UserAgent, r.Header.Get("user-agent"))
 		require.Equal(t, "/admin/v1/users", r.URL.Path)
 		require.Equal(t, "POST", r.Method)
@@ -160,7 +160,7 @@ func TestApiPost_Empty(t *testing.T) {
 	}))
 	defer ts.Close()
 
-	adminApi, err := adminapi.New("sk_test", option.WithBaseUrl(ts.URL))
+	adminApi, err := adminapi.New("userhub_admin_test", option.WithBaseUrl(ts.URL))
 	require.NoError(t, err)
 
 	user, err := adminApi.Users().Create(context.Background(), &adminapi.UserCreateInput{
@@ -177,7 +177,7 @@ func TestApiPatch(t *testing.T) {
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		require.Equal(t, internal.ApiVersion, r.Header.Get("userhub-api-version"))
-		require.Equal(t, "Bearer sk_test", r.Header.Get("authorization"))
+		require.Equal(t, "Bearer userhub_admin_test", r.Header.Get("authorization"))
 		require.Equal(t, internal.UserAgent, r.Header.Get("user-agent"))
 		require.Equal(t, "/admin/v1/users/usr_1", r.URL.Path)
 		require.Equal(t, "PATCH", r.Method)
@@ -194,7 +194,7 @@ func TestApiPatch(t *testing.T) {
 	}))
 	defer ts.Close()
 
-	adminApi, err := adminapi.New("sk_test", option.WithBaseUrl(ts.URL))
+	adminApi, err := adminapi.New("userhub_admin_test", option.WithBaseUrl(ts.URL))
 	require.NoError(t, err)
 
 	user, err := adminApi.Users().Update(context.Background(), "usr_1", &adminapi.UserUpdateInput{
@@ -211,7 +211,7 @@ func TestApiPatch_Empty(t *testing.T) {
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		require.Equal(t, internal.ApiVersion, r.Header.Get("userhub-api-version"))
-		require.Equal(t, "Bearer sk_test", r.Header.Get("authorization"))
+		require.Equal(t, "Bearer userhub_admin_test", r.Header.Get("authorization"))
 		require.Equal(t, internal.UserAgent, r.Header.Get("user-agent"))
 		require.Equal(t, "/admin/v1/users/usr_1", r.URL.Path)
 		require.Equal(t, "PATCH", r.Method)
@@ -228,7 +228,7 @@ func TestApiPatch_Empty(t *testing.T) {
 	}))
 	defer ts.Close()
 
-	adminApi, err := adminapi.New("sk_test", option.WithBaseUrl(ts.URL))
+	adminApi, err := adminapi.New("userhub_admin_test", option.WithBaseUrl(ts.URL))
 	require.NoError(t, err)
 
 	user, err := adminApi.Users().Update(context.Background(), "usr_1", &adminapi.UserUpdateInput{
@@ -245,7 +245,7 @@ func TestApiDelete(t *testing.T) {
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		require.Equal(t, internal.ApiVersion, r.Header.Get("userhub-api-version"))
-		require.Equal(t, "Bearer sk_test", r.Header.Get("authorization"))
+		require.Equal(t, "Bearer userhub_admin_test", r.Header.Get("authorization"))
 		require.Equal(t, internal.UserAgent, r.Header.Get("user-agent"))
 		require.Equal(t, "/admin/v1/users/usr_1", r.URL.Path)
 		require.Equal(t, "DELETE", r.Method)
@@ -253,7 +253,7 @@ func TestApiDelete(t *testing.T) {
 	}))
 	defer ts.Close()
 
-	adminApi, err := adminapi.New("sk_test", option.WithBaseUrl(ts.URL))
+	adminApi, err := adminapi.New("userhub_admin_test", option.WithBaseUrl(ts.URL))
 	require.NoError(t, err)
 
 	user, err := adminApi.Users().Delete(context.Background(), "usr_1", nil)
@@ -272,7 +272,7 @@ func TestApiError(t *testing.T) {
 	}))
 	defer ts.Close()
 
-	adminApi, err := adminapi.New("sk_test", option.WithBaseUrl(ts.URL))
+	adminApi, err := adminapi.New("userhub_admin_test", option.WithBaseUrl(ts.URL))
 	require.NoError(t, err)
 
 	_, err = adminApi.Users().Get(context.Background(), "usr_1", nil)
@@ -302,7 +302,7 @@ func TestApiRateLimited(t *testing.T) {
 	}))
 	defer ts.Close()
 
-	adminApi, err := adminapi.New("sk_test", option.WithBaseUrl(ts.URL))
+	adminApi, err := adminapi.New("userhub_admin_test", option.WithBaseUrl(ts.URL))
 	require.NoError(t, err)
 
 	startTime := time.Now()
