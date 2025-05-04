@@ -4,8 +4,6 @@
 
 The official [UserHub](https://userhub.com) Go SDK.
 
-Stability: alpha
-
 ### Requirements
 
  * Go 1.20 or later
@@ -31,7 +29,7 @@ import (
 )
 
 func main() {
-	adminApi, err := adminapi.New("sk_123...")
+	adminApi, err := adminapi.New("userhub_admin_123...")
 	if err != nil {
 		panic(err)
 	}
