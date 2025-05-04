@@ -12,10 +12,12 @@ import (
 )
 
 type Invoices interface {
-	// Lists invoices.
+	// List invoices.
 	List(ctx context.Context, input *InvoiceListInput) (*adminv1.ListInvoicesResponse, error)
-	// Retrieves specified invoice.
+	// Get an invoice.
 	Get(ctx context.Context, invoiceId string, input *InvoiceGetInput) (*adminv1.Invoice, error)
+	// Pay an invoice.
+	Pay(ctx context.Context, invoiceId string, input *InvoicePayInput) (*adminv1.Invoice, error)
 }
 
 type invoicesImpl struct {
@@ -26,11 +28,11 @@ type invoicesImpl struct {
 type InvoiceListInput struct {
 	// Filter results by organization identifier.
 	//
-	// This is required if user identifier is not specified.
+	// This is required if the user identifier is not specified.
 	OrganizationId string
 	// Filter results by user identifier.
 	//
-	// This is required if organization identifier is not specified.
+	// This is required if the organization identifier is not specified.
 	UserId string
 	// The maximum number of invoices to return. The API may return fewer than
 	// this value.
@@ -45,11 +47,11 @@ type InvoiceListInput struct {
 	// the call that provided the page token.
 	PageToken string
 	// A comma-separated list of fields to order by.
-	//
-	// Supports:
-	// - `createTime asc`
-	// - `createTime desc`
 	OrderBy string
+	// The Invoice view to return in the results.
+	//
+	// This defaults to the `BASIC` view.
+	View string
 }
 
 func (n *invoicesImpl) List(ctx context.Context, input *InvoiceListInput) (*adminv1.ListInvoicesResponse, error) {
@@ -75,6 +77,9 @@ func (n *invoicesImpl) List(ctx context.Context, input *InvoiceListInput) (*admi
 		}
 		if !internal.IsEmpty(input.OrderBy) {
 			req.SetQuery("orderBy", input.OrderBy)
+		}
+		if !internal.IsEmpty(input.View) {
+			req.SetQuery("view", input.View)
 		}
 	}
 
@@ -119,6 +124,58 @@ func (n *invoicesImpl) Get(ctx context.Context, invoiceId string, input *Invoice
 			req.SetQuery("userId", input.UserId)
 		}
 	}
+
+	res, err := n.transport.Execute(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	model := &adminv1.Invoice{}
+
+	err = res.DecodeBody(&model)
+	if err != nil {
+		return nil, err
+	}
+
+	return model, nil
+}
+
+// InvoicePayInput is the input param for the Pay method.
+type InvoicePayInput struct {
+	// Restrict by organization identifier.
+	OrganizationId string
+	// Restrict by user identifier.
+	UserId string
+	// The identifier of the payment method.
+	//
+	// The default payment method will be used if not specified.
+	PaymentMethodId string
+}
+
+func (n *invoicesImpl) Pay(ctx context.Context, invoiceId string, input *InvoicePayInput) (*adminv1.Invoice, error) {
+	req := internal.NewRequest(
+		"admin.invoices.pay",
+		"POST",
+		fmt.Sprintf("/admin/v1/invoices/%s:pay",
+			url.PathEscape(invoiceId),
+		),
+	)
+
+	body := map[string]any{}
+
+	if input != nil {
+		if !internal.IsEmpty(input.OrganizationId) {
+			body["organizationId"] = input.OrganizationId
+		}
+		if !internal.IsEmpty(input.UserId) {
+			body["userId"] = input.UserId
+		}
+		if !internal.IsEmpty(input.PaymentMethodId) {
+			body["paymentMethodId"] = input.PaymentMethodId
+		}
+	}
+
+	req.SetBody(body)
 
 	res, err := n.transport.Execute(ctx, req)
 	if err != nil {

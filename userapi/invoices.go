@@ -12,10 +12,12 @@ import (
 )
 
 type Invoices interface {
-	// Lists invoices.
+	// List invoices.
 	List(ctx context.Context, input *InvoiceListInput) (*userv1.ListInvoicesResponse, error)
-	// Retrieves specified invoice.
+	// Get an invoice.
 	Get(ctx context.Context, invoiceId string, input *InvoiceGetInput) (*userv1.Invoice, error)
+	// Pay an invoice.
+	Pay(ctx context.Context, invoiceId string, input *InvoicePayInput) (*userv1.Invoice, error)
 }
 
 type invoicesImpl struct {
@@ -42,10 +44,6 @@ type InvoiceListInput struct {
 	// the call that provided the page token.
 	PageToken string
 	// A comma-separated list of fields to order by.
-	//
-	// Supports:
-	// - `createTime asc`
-	// - `createTime desc`
 	OrderBy string
 }
 
@@ -100,6 +98,38 @@ func (n *invoicesImpl) Get(ctx context.Context, invoiceId string, input *Invoice
 		),
 	)
 	req.SetIdempotent(true)
+
+	res, err := n.transport.Execute(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	model := &userv1.Invoice{}
+
+	err = res.DecodeBody(&model)
+	if err != nil {
+		return nil, err
+	}
+
+	return model, nil
+}
+
+// InvoicePayInput is the input param for the Pay method.
+type InvoicePayInput struct {
+}
+
+func (n *invoicesImpl) Pay(ctx context.Context, invoiceId string, input *InvoicePayInput) (*userv1.Invoice, error) {
+	req := internal.NewRequest(
+		"user.invoices.pay",
+		"POST",
+		fmt.Sprintf("/user/v1/invoices/%s:pay",
+			url.PathEscape(invoiceId),
+		),
+	)
+
+	body := map[string]any{}
+
+	req.SetBody(body)
 
 	res, err := n.transport.Execute(ctx, req)
 	if err != nil {

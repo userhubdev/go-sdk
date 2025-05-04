@@ -2,6 +2,8 @@
 
 package userv1
 
+import "github.com/userhubdev/go-sdk/types"
+
 // Organization input parameters.
 type OrganizationInput struct {
 	// The client defined unique identifier of the organization account.
@@ -11,17 +13,17 @@ type OrganizationInput struct {
 	// character maximum.
 	//
 	// ID's starting with `org_` are reserved.
-	UniqueId *string `json:"uniqueId"`
+	UniqueId types.Optional[string] `json:"uniqueId"`
 	// The human-readable display name of the organization.
 	//
 	// The maximum length is 200 characters.
-	DisplayName *string `json:"displayName"`
+	DisplayName types.Optional[string] `json:"displayName"`
 	// The email address of the organization.
 	//
 	// The maximum length is 320 characters.
-	Email *string `json:"email"`
+	Email types.Optional[string] `json:"email"`
 	// The flow identifier associated with the creation of the organization.
 	//
 	// The flow type must be `SIGNUP` and associated with the user creating the organization.
-	FlowId *string `json:"flowId"`
+	FlowId types.Optional[string] `json:"flowId"`
 }

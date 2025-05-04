@@ -15,25 +15,32 @@ import (
 )
 
 type Users interface {
-	// Lists users.
+	// List users.
 	List(ctx context.Context, input *UserListInput) (*adminv1.ListUsersResponse, error)
-	// Creates a new user.
+	// Create a user.
 	Create(ctx context.Context, input *UserCreateInput) (*adminv1.User, error)
-	// Retrieves specified user.
+	// Get a user.
 	Get(ctx context.Context, userId string, input *UserGetInput) (*adminv1.User, error)
-	// Updates specified user.
+	// Update a user.
 	Update(ctx context.Context, userId string, input *UserUpdateInput) (*adminv1.User, error)
-	// Marks specified user for deletion.
+	// Delete a user.
+	//
+	// This marks the user for deletion and can be restored during
+	// a grace period.
+	//
+	// To immediately delete a user, you must also call purge user.
 	Delete(ctx context.Context, userId string, input *UserDeleteInput) (*adminv1.User, error)
-	// Un-marks specified user for deletion.
+	// Restore a user.
 	Undelete(ctx context.Context, userId string, input *UserUndeleteInput) (*adminv1.User, error)
-	// Hard delete the specified user.
+	// Purge a deleted user.
 	//
 	// The user must be marked for deletion before it can be purged.
 	Purge(ctx context.Context, userId string, input *UserPurgeInput) (*adminv1.PurgeUserResponse, error)
-	// Connect specified user to external account.
+	// Connect a user to an external account.
 	Connect(ctx context.Context, userId string, input *UserConnectInput) (*adminv1.User, error)
-	// Disconnect specified user from external account.
+	// Update a user's external account.
+	UpdateConnection(ctx context.Context, userId string, input *UserUpdateConnectionInput) (*adminv1.User, error)
+	// Disconnect a user from an external account.
 	//
 	// This will delete all the data associated with the connected account, including
 	// payment methods, invoices, and subscriptions.
@@ -44,14 +51,13 @@ type Users interface {
 	// WARNING: This can irreversibly destroy data and should be
 	// used with extreme caution.
 	Disconnect(ctx context.Context, userId string, input *UserDisconnectInput) (*adminv1.User, error)
-	// Import user from external identity provider if they don't already
-	// exist.
+	// Import a user from a user provider.
 	//
-	// If the user already exists in UserHub, this is a no-op.
+	// If the user already exists, this is a no-op.
 	ImportAccount(ctx context.Context, userId string, input *UserImportAccountInput) (*adminv1.User, error)
 	// Create a User API session.
 	CreateApiSession(ctx context.Context, userId string, input *UserCreateApiSessionInput) (*adminv1.CreateApiSessionResponse, error)
-	// Create Portal session.
+	// Create a Portal session.
 	CreatePortalSession(ctx context.Context, userId string, input *UserCreatePortalSessionInput) (*adminv1.CreatePortalSessionResponse, error)
 }
 
@@ -90,13 +96,6 @@ type UserListInput struct {
 	// the call that provided the page token.
 	PageToken string
 	// A comma-separated list of fields to order by.
-	//
-	// Supports:
-	// - `displayName asc`
-	// - `email asc`
-	// - `signupTime desc`
-	// - `createTime desc`
-	// - `deleteTime desc`
 	OrderBy string
 	// Whether to show deleted users.
 	ShowDeleted bool
@@ -563,6 +562,95 @@ func (n *usersImpl) Connect(ctx context.Context, userId string, input *UserConne
 	return model, nil
 }
 
+// UserUpdateConnectionInput is the input param for the UpdateConnection method.
+type UserUpdateConnectionInput struct {
+	// The system-assigned identifier for the connection of the external account.
+	ConnectionId string
+	// The human-readable display name of the external account.
+	//
+	// The maximum length is 200 characters.
+	//
+	// This might be further restricted by the external provider.
+	DisplayName types.Optional[string]
+	// The email address of the external account.
+	//
+	// The maximum length is 320 characters.
+	//
+	// This might be further restricted by the external provider.
+	Email types.Optional[string]
+	// Whether the external account's email address has been verified.
+	EmailVerified types.Optional[bool]
+	// The E164 phone number for the external account (e.g. `+12125550123`).
+	PhoneNumber types.Optional[string]
+	// Whether the external account's phone number has been verified.
+	PhoneNumberVerified types.Optional[bool]
+	// The default ISO-4217 currency code for the external account (e.g. `USD`).
+	CurrencyCode types.Optional[string]
+	// The billing address for the external account.
+	Address types.Optional[*commonv1.Address]
+	// Whether the external account is disabled.
+	Disabled types.Optional[bool]
+}
+
+func (n *usersImpl) UpdateConnection(ctx context.Context, userId string, input *UserUpdateConnectionInput) (*adminv1.User, error) {
+	req := internal.NewRequest(
+		"admin.users.updateConnection",
+		"PATCH",
+		fmt.Sprintf("/admin/v1/users/%s:updateConnection",
+			url.PathEscape(userId),
+		),
+	)
+	req.SetIdempotent(true)
+
+	body := map[string]any{}
+
+	if input != nil {
+		if !internal.IsEmpty(input.ConnectionId) {
+			body["connectionId"] = input.ConnectionId
+		}
+		if input.DisplayName.Present {
+			body["displayName"] = input.DisplayName.Value
+		}
+		if input.Email.Present {
+			body["email"] = input.Email.Value
+		}
+		if input.EmailVerified.Present {
+			body["emailVerified"] = input.EmailVerified.Value
+		}
+		if input.PhoneNumber.Present {
+			body["phoneNumber"] = input.PhoneNumber.Value
+		}
+		if input.PhoneNumberVerified.Present {
+			body["phoneNumberVerified"] = input.PhoneNumberVerified.Value
+		}
+		if input.CurrencyCode.Present {
+			body["currencyCode"] = input.CurrencyCode.Value
+		}
+		if input.Address.Present {
+			body["address"] = input.Address.Value
+		}
+		if input.Disabled.Present {
+			body["disabled"] = input.Disabled.Value
+		}
+	}
+
+	req.SetBody(body)
+
+	res, err := n.transport.Execute(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	model := &adminv1.User{}
+
+	err = res.DecodeBody(&model)
+	if err != nil {
+		return nil, err
+	}
+
+	return model, nil
+}
+
 // UserDisconnectInput is the input param for the Disconnect method.
 type UserDisconnectInput struct {
 	// The identifier of the connection.
@@ -691,8 +779,6 @@ type UserCreatePortalSessionInput struct {
 	//
 	// Examples:
 	// * `/{accountId}` - the billing dashboard
-	// * `/{accountId}/checkout` - start a checkout
-	// * `/{accountId}/checkout/<some-plan-id>` - start a checkout with a specified plan
 	// * `/{accountId}/cancel` - cancel current plan
 	// * `/{accountId}/members` - manage organization members
 	// * `/{accountId}/invite` - invite a user to an organization

@@ -12,6 +12,8 @@ type Plan struct {
 	Id string `json:"id"`
 	// The status of the plan.
 	State string `json:"state"`
+	// The client defined unique identifier of the plan.
+	UniqueId string `json:"uniqueId"`
 	// The name of the plan.
 	DisplayName string `json:"displayName"`
 	// The description of the plan.
@@ -23,7 +25,7 @@ type Plan struct {
 	// The currency code for the plan (e.g. `USD`).
 	CurrencyCode string `json:"currencyCode"`
 	// The billing interval for the plan.
-	BillingInterval *commonv1.Interval `json:"billingInterval"`
+	Interval *commonv1.Interval `json:"interval"`
 	// The revision for the plan.
 	Revision *PlanRevision `json:"revision"`
 	// Whether this is the current plan for the subscription.

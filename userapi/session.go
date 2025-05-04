@@ -10,11 +10,11 @@ import (
 )
 
 type Session interface {
-	// Get the current session details.
+	// Get details about the current session.
 	Get(ctx context.Context, input *SessionGetInput) (*userv1.Session, error)
-	// Exchange an ID token from your IdP for an access token.
+	// Exchange an ID token from an IdP for an access token.
 	ExchangeToken(ctx context.Context, input *SessionExchangeTokenInput) (*userv1.ExchangeSessionTokenResponse, error)
-	// Create Portal session.
+	// Create a new Portal session.
 	CreatePortal(ctx context.Context, input *SessionCreatePortalInput) (*userv1.CreatePortalSessionResponse, error)
 }
 

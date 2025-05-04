@@ -16,25 +16,33 @@ import (
 )
 
 type Organizations interface {
-	// Lists organizations.
+	// List organizations.
 	List(ctx context.Context, input *OrganizationListInput) (*adminv1.ListOrganizationsResponse, error)
-	// Creates a new organization.
+	// Create an organization.
 	Create(ctx context.Context, input *OrganizationCreateInput) (*adminv1.Organization, error)
-	// Retrieves specified organization.
+	// Get an organization.
 	Get(ctx context.Context, organizationId string, input *OrganizationGetInput) (*adminv1.Organization, error)
-	// Updates specified organization.
+	// Update an organization.
 	Update(ctx context.Context, organizationId string, input *OrganizationUpdateInput) (*adminv1.Organization, error)
-	// Marks specified organization for deletion.
+	// Delete an organization.
+	//
+	// This marks the organization for deletion and can be restored during
+	// a grace period.
+	//
+	// To immediately delete an organization, you must also call purge
+	// organization.
 	Delete(ctx context.Context, organizationId string, input *OrganizationDeleteInput) (*adminv1.Organization, error)
-	// Un-marks specified organization for deletion.
+	// Restore an organization.
 	Undelete(ctx context.Context, organizationId string, input *OrganizationUndeleteInput) (*adminv1.Organization, error)
-	// Hard delete the specified organization.
+	// Purge a deleted organization.
 	//
 	// The organization must be marked for deletion before it can be purged.
 	Purge(ctx context.Context, organizationId string, input *OrganizationPurgeInput) (*adminv1.PurgeOrganizationResponse, error)
-	// Connect specified organization to external account.
+	// Connect an organization to an external account.
 	Connect(ctx context.Context, organizationId string, input *OrganizationConnectInput) (*adminv1.Organization, error)
-	// Disconnect specified organization from external account.
+	// Update an organization's external account.
+	UpdateConnection(ctx context.Context, organizationId string, input *OrganizationUpdateConnectionInput) (*adminv1.Organization, error)
+	// Disconnect an organization from an external account.
 	//
 	// This will delete all the data associated with the connected account, including
 	// payment methods, invoices, and subscriptions.
@@ -45,15 +53,15 @@ type Organizations interface {
 	// WARNING: This can irreversibly destroy data and should be
 	// used with extreme caution.
 	Disconnect(ctx context.Context, organizationId string, input *OrganizationDisconnectInput) (*adminv1.Organization, error)
-	// Lists organization members.
+	// List organization members.
 	ListMembers(ctx context.Context, organizationId string, input *OrganizationListMembersInput) (*adminv1.ListMembersResponse, error)
-	// Creates a new organization member.
+	// Create an organization member.
 	AddMember(ctx context.Context, organizationId string, input *OrganizationAddMemberInput) (*adminv1.Member, error)
-	// Retrieves specified organization member.
+	// Get an organization member.
 	GetMember(ctx context.Context, organizationId string, userId string, input *OrganizationGetMemberInput) (*adminv1.Member, error)
-	// Updates specified organization member.
+	// Update an organization member.
 	UpdateMember(ctx context.Context, organizationId string, userId string, input *OrganizationUpdateMemberInput) (*adminv1.Member, error)
-	// Deletes specified organization member.
+	// Delete an organization member.
 	RemoveMember(ctx context.Context, organizationId string, userId string, input *OrganizationRemoveMemberInput) (*apiv1.EmptyResponse, error)
 }
 
@@ -92,13 +100,6 @@ type OrganizationListInput struct {
 	// the call that provided the page token.
 	PageToken string
 	// A comma-separated list of fields to order by.
-	//
-	// Supports:
-	// - `displayName asc`
-	// - `email asc`
-	// - `signupTime desc`
-	// - `createTime desc`
-	// - `deleteTime desc`
 	OrderBy string
 	// Whether to show deleted organizations.
 	ShowDeleted bool
@@ -567,6 +568,95 @@ func (n *organizationsImpl) Connect(ctx context.Context, organizationId string, 
 	return model, nil
 }
 
+// OrganizationUpdateConnectionInput is the input param for the UpdateConnection method.
+type OrganizationUpdateConnectionInput struct {
+	// The system-assigned identifier for the connection of the external account.
+	ConnectionId string
+	// The human-readable display name of the external account.
+	//
+	// The maximum length is 200 characters.
+	//
+	// This might be further restricted by the external provider.
+	DisplayName types.Optional[string]
+	// The email address of the external account.
+	//
+	// The maximum length is 320 characters.
+	//
+	// This might be further restricted by the external provider.
+	Email types.Optional[string]
+	// Whether the external account's email address has been verified.
+	EmailVerified types.Optional[bool]
+	// The E164 phone number for the external account (e.g. `+12125550123`).
+	PhoneNumber types.Optional[string]
+	// Whether the external account's phone number has been verified.
+	PhoneNumberVerified types.Optional[bool]
+	// The default ISO-4217 currency code for the external account (e.g. `USD`).
+	CurrencyCode types.Optional[string]
+	// The billing address for the external account.
+	Address types.Optional[*commonv1.Address]
+	// Whether the external account is disabled.
+	Disabled types.Optional[bool]
+}
+
+func (n *organizationsImpl) UpdateConnection(ctx context.Context, organizationId string, input *OrganizationUpdateConnectionInput) (*adminv1.Organization, error) {
+	req := internal.NewRequest(
+		"admin.organizations.updateConnection",
+		"PATCH",
+		fmt.Sprintf("/admin/v1/organizations/%s:updateConnection",
+			url.PathEscape(organizationId),
+		),
+	)
+	req.SetIdempotent(true)
+
+	body := map[string]any{}
+
+	if input != nil {
+		if !internal.IsEmpty(input.ConnectionId) {
+			body["connectionId"] = input.ConnectionId
+		}
+		if input.DisplayName.Present {
+			body["displayName"] = input.DisplayName.Value
+		}
+		if input.Email.Present {
+			body["email"] = input.Email.Value
+		}
+		if input.EmailVerified.Present {
+			body["emailVerified"] = input.EmailVerified.Value
+		}
+		if input.PhoneNumber.Present {
+			body["phoneNumber"] = input.PhoneNumber.Value
+		}
+		if input.PhoneNumberVerified.Present {
+			body["phoneNumberVerified"] = input.PhoneNumberVerified.Value
+		}
+		if input.CurrencyCode.Present {
+			body["currencyCode"] = input.CurrencyCode.Value
+		}
+		if input.Address.Present {
+			body["address"] = input.Address.Value
+		}
+		if input.Disabled.Present {
+			body["disabled"] = input.Disabled.Value
+		}
+	}
+
+	req.SetBody(body)
+
+	res, err := n.transport.Execute(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	model := &adminv1.Organization{}
+
+	err = res.DecodeBody(&model)
+	if err != nil {
+		return nil, err
+	}
+
+	return model, nil
+}
+
 // OrganizationDisconnectInput is the input param for the Disconnect method.
 type OrganizationDisconnectInput struct {
 	// The identifier of the connection.
@@ -646,11 +736,6 @@ type OrganizationListMembersInput struct {
 	// the call that provided the page token.
 	PageToken string
 	// A comma-separated list of fields to order by.
-	//
-	// Supports:
-	// - `displayName asc`
-	// - `email asc`
-	// - `createTime desc`
 	OrderBy string
 }
 

@@ -44,10 +44,6 @@ type AccountConnection struct {
 	BalanceAmount string `json:"balanceAmount"`
 	// The payment methods for connections that support it.
 	PaymentMethods []*PaymentMethod `json:"paymentMethods"`
-	// The last time the account was pulled from the connection.
-	PullTime time.Time `json:"pullTime"`
-	// The last time the account was pushed to the connection.
-	PushTime time.Time `json:"pushTime"`
 	// The creation time of the account connection.
 	CreateTime time.Time `json:"createTime"`
 	// The last update time of the account connection.

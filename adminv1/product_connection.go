@@ -16,10 +16,6 @@ type ProductConnection struct {
 	State string `json:"state"`
 	// The code that best describes the reason for the state.
 	StateReason string `json:"stateReason"`
-	// The last time the product was pulled from the connection.
-	PullTime time.Time `json:"pullTime"`
-	// The last time the product was pushed to the connection.
-	PushTime time.Time `json:"pushTime"`
 	// The creation time of the product connection.
 	CreateTime time.Time `json:"createTime"`
 	// The last update time of the product connection.

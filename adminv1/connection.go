@@ -32,12 +32,6 @@ type Connection struct {
 	Delegate *ConnectionDelegate `json:"delegate"`
 	// The connection providers.
 	Providers []*ConnectionProvider `json:"providers"`
-	// The connection view.
-	View string `json:"view"`
-	// The creation time of the connection.
-	CreateTime time.Time `json:"createTime"`
-	// The last update time of the connection.
-	UpdateTime time.Time `json:"updateTime"`
 	// The Amazon Cognito connection data.
 	AmazonCognito *AmazonCognitoConnection `json:"amazonCognito"`
 	// The Auth0 connection data.
@@ -52,4 +46,10 @@ type Connection struct {
 	Stripe *StripeConnection `json:"stripe"`
 	// The webhooks configuration data.
 	Webhook *WebhookConnection `json:"webhook"`
+	// The connection view.
+	View string `json:"view"`
+	// The creation time of the connection.
+	CreateTime time.Time `json:"createTime"`
+	// The last update time of the connection.
+	UpdateTime time.Time `json:"updateTime"`
 }

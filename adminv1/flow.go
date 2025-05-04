@@ -34,14 +34,14 @@ type Flow struct {
 	//
 	// This is only populated on create.
 	Secret string `json:"secret"`
+	// The join organization flow type specific data.
+	JoinOrganization *JoinOrganizationFlow `json:"joinOrganization"`
+	// The signup flow type specific data
+	Signup *SignupFlow `json:"signup"`
 	// The flow view.
 	View string `json:"view"`
 	// The creation time of the flow.
 	CreateTime time.Time `json:"createTime"`
 	// The last update time of the flow.
 	UpdateTime time.Time `json:"updateTime"`
-	// The join organization flow type specific data.
-	JoinOrganization *JoinOrganizationFlow `json:"joinOrganization"`
-	// The signup flow type specific data
-	Signup *SignupFlow `json:"signup"`
 }
