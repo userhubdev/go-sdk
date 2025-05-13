@@ -55,13 +55,13 @@ type Users interface {
 	//
 	// If the user already exists, this is a no-op.
 	ImportAccount(ctx context.Context, userId string, input *UserImportAccountInput) (*adminv1.User, error)
-	// Report a user action.
+	// Report a user event.
 	//
 	// If the `<externalId>@<connectionId>` user identifier syntax is
 	// used and the user doesn't exist, they will be imported.
 	//
-	// By default, the action is processed asynchronously.
-	ReportAction(ctx context.Context, userId string, input *UserReportActionInput) (*adminv1.ReportUserActionResponse, error)
+	// By default, the event is processed asynchronously.
+	ReportEvent(ctx context.Context, userId string, input *UserReportEventInput) (*adminv1.ReportUserEventResponse, error)
 	// Create a User API session.
 	CreateApiSession(ctx context.Context, userId string, input *UserCreateApiSessionInput) (*adminv1.CreateApiSessionResponse, error)
 	// Create a Portal session.
@@ -737,10 +737,12 @@ func (n *usersImpl) ImportAccount(ctx context.Context, userId string, input *Use
 	return model, nil
 }
 
-// UserReportActionInput is the input param for the ReportAction method.
-type UserReportActionInput struct {
-	// The type of action.
-	Action string
+// UserReportEventInput is the input param for the ReportEvent method.
+type UserReportEventInput struct {
+	// The event type.
+	//
+	// If not specified, this defaults to `CHANGED`.
+	Type string
 	// Process the user action synchronously.
 	//
 	// Otherwise the action is processed in the background and errors
@@ -748,11 +750,11 @@ type UserReportActionInput struct {
 	Wait bool
 }
 
-func (n *usersImpl) ReportAction(ctx context.Context, userId string, input *UserReportActionInput) (*adminv1.ReportUserActionResponse, error) {
+func (n *usersImpl) ReportEvent(ctx context.Context, userId string, input *UserReportEventInput) (*adminv1.ReportUserEventResponse, error) {
 	req := internal.NewRequest(
-		"admin.users.reportAction",
+		"admin.users.reportEvent",
 		"POST",
-		fmt.Sprintf("/admin/v1/users/%s:reportAction",
+		fmt.Sprintf("/admin/v1/users/%s:event",
 			url.PathEscape(userId),
 		),
 	)
@@ -760,8 +762,8 @@ func (n *usersImpl) ReportAction(ctx context.Context, userId string, input *User
 	body := map[string]any{}
 
 	if input != nil {
-		if !internal.IsEmpty(input.Action) {
-			body["action"] = input.Action
+		if !internal.IsEmpty(input.Type) {
+			body["type"] = input.Type
 		}
 		if !internal.IsEmpty(input.Wait) {
 			body["wait"] = input.Wait
@@ -775,7 +777,7 @@ func (n *usersImpl) ReportAction(ctx context.Context, userId string, input *User
 		return nil, err
 	}
 
-	model := &adminv1.ReportUserActionResponse{}
+	model := &adminv1.ReportUserEventResponse{}
 
 	err = res.DecodeBody(&model)
 	if err != nil {
