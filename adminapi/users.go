@@ -55,6 +55,13 @@ type Users interface {
 	//
 	// If the user already exists, this is a no-op.
 	ImportAccount(ctx context.Context, userId string, input *UserImportAccountInput) (*adminv1.User, error)
+	// Report a user action.
+	//
+	// If the `<externalId>@<connectionId>` user identifier syntax is
+	// used and the user doesn't exist, they will be imported.
+	//
+	// By default, the action is processed asynchronously.
+	ReportAction(ctx context.Context, userId string, input *UserReportActionInput) (*adminv1.ReportUserActionResponse, error)
 	// Create a User API session.
 	CreateApiSession(ctx context.Context, userId string, input *UserCreateApiSessionInput) (*adminv1.CreateApiSessionResponse, error)
 	// Create a Portal session.
@@ -721,6 +728,54 @@ func (n *usersImpl) ImportAccount(ctx context.Context, userId string, input *Use
 	}
 
 	model := &adminv1.User{}
+
+	err = res.DecodeBody(&model)
+	if err != nil {
+		return nil, err
+	}
+
+	return model, nil
+}
+
+// UserReportActionInput is the input param for the ReportAction method.
+type UserReportActionInput struct {
+	// The type of action.
+	Action string
+	// Process the user action synchronously.
+	//
+	// Otherwise the action is processed in the background and errors
+	// won't be returned.
+	Wait bool
+}
+
+func (n *usersImpl) ReportAction(ctx context.Context, userId string, input *UserReportActionInput) (*adminv1.ReportUserActionResponse, error) {
+	req := internal.NewRequest(
+		"admin.users.reportAction",
+		"POST",
+		fmt.Sprintf("/admin/v1/users/%s:reportAction",
+			url.PathEscape(userId),
+		),
+	)
+
+	body := map[string]any{}
+
+	if input != nil {
+		if !internal.IsEmpty(input.Action) {
+			body["action"] = input.Action
+		}
+		if !internal.IsEmpty(input.Wait) {
+			body["wait"] = input.Wait
+		}
+	}
+
+	req.SetBody(body)
+
+	res, err := n.transport.Execute(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	model := &adminv1.ReportUserActionResponse{}
 
 	err = res.DecodeBody(&model)
 	if err != nil {

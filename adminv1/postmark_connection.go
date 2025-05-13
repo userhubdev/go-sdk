@@ -21,6 +21,4 @@ type PostmarkConnection struct {
 	From *commonv1.Email `json:"from"`
 	// The reply to email address.
 	ReplyTo *commonv1.Email `json:"replyTo"`
-	// The allowed email list.
-	AllowedEmails []string `json:"allowedEmails"`
 }
